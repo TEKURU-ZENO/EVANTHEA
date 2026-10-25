@@ -1,0 +1,7 @@
+Model,Split,FeatureConfig,Spearman,Pearson,MAE,RMSE,R2,Top10_Enrichment
+MeanPredictor,random,emb_diff,N/A,N/A,0.5636,0.5636,0.0000,N/A
+MedianPredictor,random,emb_diff,N/A,N/A,0.2970,0.2970,0.0000,N/A
+ZeroShotESM2Predictor,random,emb_diff,N/A,N/A,3.6534,3.6534,0.0000,N/A
+RidgeFitnessPredictor,random,emb_diff,N/A,N/A,0.0592,0.0592,0.0000,N/A
+HistGradientBoostingPredictor,random,emb_diff,N/A,N/A,0.5636,0.5636,0.0000,N/A
+RandomForestFitnessPredictor,random,emb_diff,N/A,N/A,0.5562,0.5562,0.0000,N/A

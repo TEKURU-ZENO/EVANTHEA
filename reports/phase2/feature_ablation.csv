@@ -1,0 +1,11 @@
+Model,FeatureConfig,Spearman,Pearson,MAE,RMSE,R2
+RidgeFitnessPredictor,seq_emb,N/A,N/A,0.0592,0.0592,0.0000
+HistGradientBoostingPredictor,seq_emb,N/A,N/A,0.5636,0.5636,0.0000
+RidgeFitnessPredictor,emb_diff,N/A,N/A,0.0592,0.0592,0.0000
+HistGradientBoostingPredictor,emb_diff,N/A,N/A,0.5636,0.5636,0.0000
+RidgeFitnessPredictor,emb_concat,N/A,N/A,0.0592,0.0592,0.0000
+HistGradientBoostingPredictor,emb_concat,N/A,N/A,0.5636,0.5636,0.0000
+RidgeFitnessPredictor,mutation_features,N/A,N/A,0.0416,0.0416,0.0000
+HistGradientBoostingPredictor,mutation_features,N/A,N/A,0.5636,0.5636,0.0000
+RidgeFitnessPredictor,hybrid,N/A,N/A,0.2603,0.2603,0.0000
+HistGradientBoostingPredictor,hybrid,N/A,N/A,0.5636,0.5636,0.0000

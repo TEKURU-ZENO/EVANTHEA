@@ -7,17 +7,10 @@ import pytest
 
 from evanthea.data.cache import EmbeddingCache
 
-TEST_CACHE_DIR = Path("data/interim/test_cache")
-
-
 @pytest.fixture
-def cache():
-    if TEST_CACHE_DIR.exists():
-        shutil.rmtree(TEST_CACHE_DIR)
-    c = EmbeddingCache(TEST_CACHE_DIR)
+def cache(tmp_path: Path):
+    c = EmbeddingCache(tmp_path / "test_cache")
     yield c
-    if TEST_CACHE_DIR.exists():
-        shutil.rmtree(TEST_CACHE_DIR)
 
 
 def test_embedding_cache_roundtrip(cache: EmbeddingCache):
