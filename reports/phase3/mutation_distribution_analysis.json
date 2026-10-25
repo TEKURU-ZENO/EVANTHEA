@@ -1,0 +1,153 @@
+{
+  "parent_length": 238,
+  "n_proposals_per_generator": 1000,
+  "generators": {
+    "Uniform Random": {
+      "n_proposals": 1000,
+      "n_unique_variants": 899,
+      "acceptance_rate": 0.943,
+      "plausibility": {
+        "mean_delta_log_p": -2.9444389791664416,
+        "median_delta_log_p": -2.9444389791664407,
+        "std_delta_log_p": 8.881784197001252e-16,
+        "min_delta_log_p": -2.9444389791664407,
+        "max_delta_log_p": -2.9444389791664407
+      },
+      "blosum62": {
+        "mean_blosum62_score": -1.383,
+        "median_blosum62_score": -2.0,
+        "std_blosum62_score": 1.5245691194563793
+      },
+      "residue_shannon_entropy_bits": 4.307786288785426,
+      "mean_pairwise_hamming": 1.9961306532663317,
+      "median_pairwise_hamming": 2.0,
+      "mean_generation_time_ms": 0.043684800271876156
+    },
+    "BLOSUM62 (T=1.0)": {
+      "n_proposals": 1000,
+      "n_unique_variants": 662,
+      "acceptance_rate": 0.977,
+      "plausibility": {
+        "mean_delta_log_p": 0.84,
+        "median_delta_log_p": 1.0,
+        "std_delta_log_p": 1.5447977213862012,
+        "min_delta_log_p": -4.0,
+        "max_delta_log_p": 3.0
+      },
+      "blosum62": {
+        "mean_blosum62_score": 0.84,
+        "median_blosum62_score": 1.0,
+        "std_blosum62_score": 1.5447977213862012
+      },
+      "residue_shannon_entropy_bits": 4.162610600066993,
+      "mean_pairwise_hamming": 1.9970854271356784,
+      "median_pairwise_hamming": 2.0,
+      "mean_generation_time_ms": 0.12280659936368465
+    },
+    "BLOSUM62 (T=0.5)": {
+      "n_proposals": 1000,
+      "n_unique_variants": 487,
+      "acceptance_rate": 0.986,
+      "plausibility": {
+        "mean_delta_log_p": 1.491,
+        "median_delta_log_p": 2.0,
+        "std_delta_log_p": 1.18064346862209,
+        "min_delta_log_p": -2.0,
+        "max_delta_log_p": 3.0
+      },
+      "blosum62": {
+        "mean_blosum62_score": 1.491,
+        "median_blosum62_score": 2.0,
+        "std_blosum62_score": 1.18064346862209
+      },
+      "residue_shannon_entropy_bits": 3.9429970644383703,
+      "mean_pairwise_hamming": 1.9965829145728644,
+      "median_pairwise_hamming": 2.0,
+      "mean_generation_time_ms": 0.16246080305427313
+    },
+    "ESM-2 (T=1.0, Uniform)": {
+      "n_proposals": 1000,
+      "n_unique_variants": 802,
+      "acceptance_rate": 0.943,
+      "plausibility": {
+        "mean_delta_log_p": -1.55989999997445,
+        "median_delta_log_p": -1.299999999989931,
+        "std_delta_log_p": 0.9416989911374244,
+        "min_delta_log_p": -5.449999998955047,
+        "max_delta_log_p": -0.5499999999963872
+      },
+      "blosum62": {
+        "mean_blosum62_score": -1.421,
+        "median_blosum62_score": -2.0,
+        "std_blosum62_score": 1.4421369560482111
+      },
+      "residue_shannon_entropy_bits": 4.303513793225446,
+      "mean_pairwise_hamming": 1.9967336683417085,
+      "median_pairwise_hamming": 2.0,
+      "mean_generation_time_ms": 0.1856091010849923
+    },
+    "ESM-2 (T=0.5, Uniform)": {
+      "n_proposals": 1000,
+      "n_unique_variants": 665,
+      "acceptance_rate": 0.944,
+      "plausibility": {
+        "mean_delta_log_p": -1.1155999999919086,
+        "median_delta_log_p": -0.949999999996165,
+        "std_delta_log_p": 0.5249777519012576,
+        "min_delta_log_p": -3.999999999880607,
+        "max_delta_log_p": -0.5499999999963872
+      },
+      "blosum62": {
+        "mean_blosum62_score": -1.406,
+        "median_blosum62_score": -2.0,
+        "std_blosum62_score": 1.478906352680926
+      },
+      "residue_shannon_entropy_bits": 4.276370068753085,
+      "mean_pairwise_hamming": 1.9968341708542714,
+      "median_pairwise_hamming": 2.0,
+      "mean_generation_time_ms": 0.13251179980579764
+    },
+    "ESM-2 (T=1.0, Entropy)": {
+      "n_proposals": 1000,
+      "n_unique_variants": 799,
+      "acceptance_rate": 0.948,
+      "plausibility": {
+        "mean_delta_log_p": -1.5131499999773046,
+        "median_delta_log_p": -1.2499999999921592,
+        "std_delta_log_p": 0.8956196611438196,
+        "min_delta_log_p": -5.449999998955047,
+        "max_delta_log_p": -0.5499999999963872
+      },
+      "blosum62": {
+        "mean_blosum62_score": -1.394,
+        "median_blosum62_score": -2.0,
+        "std_blosum62_score": 1.4747081067112908
+      },
+      "residue_shannon_entropy_bits": 4.29754337794995,
+      "mean_pairwise_hamming": 1.996180904522613,
+      "median_pairwise_hamming": 2.0,
+      "mean_generation_time_ms": 0.11374879884533584
+    },
+    "ESM-2 Multi-Mutant (Sequential, k=1..3)": {
+      "n_proposals": 1000,
+      "n_unique_variants": 965,
+      "acceptance_rate": 0.846,
+      "plausibility": {
+        "mean_delta_log_p": -3.003,
+        "median_delta_log_p": -3.0,
+        "std_delta_log_p": 1.2277992506920663,
+        "min_delta_log_p": -4.5,
+        "max_delta_log_p": -1.5
+      },
+      "blosum62": {
+        "mean_blosum62_score": -1.4350649350649352,
+        "median_blosum62_score": -2.0,
+        "std_blosum62_score": 1.4676087167340575
+      },
+      "residue_shannon_entropy_bits": 4.307516061111093,
+      "mean_pairwise_hamming": 4.050904522613065,
+      "median_pairwise_hamming": 4.0,
+      "mean_generation_time_ms": 0.4757568994536996
+    }
+  }
+}

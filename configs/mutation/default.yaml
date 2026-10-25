@@ -1,0 +1,15 @@
+# EVANTHEA Default Mutation Generator Configuration
+generator_type: "esm2_point"
+temperature: 1.0
+top_k: null
+top_p: null
+position_strategy: "uniform"
+seed: 42
+
+combinatorial:
+  enabled: false
+  degree_mode: "uniform"
+  min_degree: 1
+  max_degree: 3
+  poisson_lambda: 2.0
+  proposal_mode: "sequential"

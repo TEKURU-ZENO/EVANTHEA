@@ -94,6 +94,23 @@ class ProteinLanguageModel(ABC):
         """Computes sequence pseudo-perplexity (PLL). Lower value indicates higher naturalness."""
         raise NotImplementedError
 
+    @abstractmethod
+    def get_masked_marginal_logits(
+        self,
+        sequence: str,
+        position_1based: int,
+    ) -> Dict[str, float]:
+        """Returns logits for all 20 canonical amino acids when position is masked."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_wildtype_marginal_logits(
+        self,
+        sequence: str,
+    ) -> Dict[int, Dict[str, float]]:
+        """Returns logits for all 20 canonical amino acids across all sequence positions."""
+        raise NotImplementedError
+
 
 class HuggingFaceESM2Model(ProteinLanguageModel):
     """Production implementation of ESM-2 using Hugging Face Transformers."""
@@ -367,3 +384,145 @@ class HuggingFaceESM2Model(ProteinLanguageModel):
         avg_nll = - (total_log_likelihood / seq_len)
         pll = torch.exp(torch.tensor(avg_nll)).item()
         return pll
+
+    @torch.inference_mode()
+    def get_masked_marginal_logits(
+        self,
+        sequence: str,
+        position_1based: int,
+    ) -> Dict[str, float]:
+        """Returns logits for all 20 canonical amino acids when position is masked."""
+        ref_seq = validate_amino_acid_string(sequence)
+        seq_len = len(ref_seq)
+        if position_1based < 1 or position_1based > seq_len:
+            raise CoordinateOutOfBoundsError(position_1based, seq_len, f"pos={position_1based}")
+
+        masked_chars = list(ref_seq)
+        masked_chars[position_1based - 1] = self.tokenizer.mask_token
+        masked_str = "".join(masked_chars)
+
+        inputs = self.tokenizer(masked_str, return_tensors="pt", add_special_tokens=True).to(self.device)
+        logits = self.model(**inputs).logits[0]
+        tok_idx = position_1based
+
+        res: Dict[str, float] = {}
+        for aa in sorted(STANDARD_AMINO_ACIDS):
+            tok_id = self.tokenizer.convert_tokens_to_ids(aa)
+            res[aa] = logits[tok_idx, tok_id].item()
+        return res
+
+    @torch.inference_mode()
+    def get_wildtype_marginal_logits(
+        self,
+        sequence: str,
+    ) -> Dict[int, Dict[str, float]]:
+        """Returns logits for all 20 canonical amino acids across all sequence positions in a single pass."""
+        ref_seq = validate_amino_acid_string(sequence)
+        inputs = self.tokenizer(ref_seq, return_tensors="pt", add_special_tokens=True).to(self.device)
+        logits = self.model(**inputs).logits[0]
+
+        all_logits: Dict[int, Dict[str, float]] = {}
+        for pos_1b in range(1, len(ref_seq) + 1):
+            pos_dict: Dict[str, float] = {}
+            for aa in sorted(STANDARD_AMINO_ACIDS):
+                tok_id = self.tokenizer.convert_tokens_to_ids(aa)
+                pos_dict[aa] = logits[pos_1b, tok_id].item()
+            all_logits[pos_1b] = pos_dict
+        return all_logits
+
+
+class MockProteinLanguageModel(ProteinLanguageModel):
+    """Deterministic mock PLM for fast unit testing and offline environments."""
+
+    def __init__(self, hidden_dim: int = 128) -> None:
+        self.hidden_dim = hidden_dim
+
+    def embed(
+        self,
+        sequences: List[str],
+        batch_size: int = 16,
+    ) -> SequenceEmbeddingResult:
+        b = len(sequences)
+        pooled = torch.zeros(b, self.hidden_dim)
+        res_list = [torch.zeros(len(s), self.hidden_dim) for s in sequences]
+        return SequenceEmbeddingResult(
+            sequence_embeddings=pooled,
+            residue_embeddings=res_list,
+            hidden_dim=self.hidden_dim,
+            model_name="mock_plm",
+        )
+
+    def score_mutations(
+        self,
+        sequence: str,
+        mutations: List[Mutation],
+        method: Literal["masked_marginal", "wildtype_marginal"] = "masked_marginal",
+    ) -> List[MutationScoreResult]:
+        ref_seq = validate_amino_acid_string(sequence)
+        seq_len = len(ref_seq)
+        results = []
+        for mut in mutations:
+            if mut.position_1based < 1 or mut.position_1based > seq_len:
+                raise CoordinateOutOfBoundsError(mut.position_1based, seq_len, mut.to_string())
+            actual_wt = ref_seq[mut.position_0based]
+            if actual_wt != mut.ref_residue:
+                raise SequenceMismatchError(mut.position_1based, mut.ref_residue, actual_wt, mut.to_string())
+            results.append(
+                MutationScoreResult(
+                    mutation=mut,
+                    log_odds_score=-1.5,
+                    wt_log_prob=-0.5,
+                    mut_log_prob=-2.0,
+                    scoring_method=method,
+                )
+            )
+        return results
+
+    def score_combinatorial_variant(
+        self,
+        sequence: str,
+        mutations: List[Mutation],
+        method: Literal["additive", "joint_masked"] = "additive",
+    ) -> CombinatorialScoreResult:
+        single_scores = self.score_mutations(sequence, mutations)
+        total = sum(s.log_odds_score for s in single_scores)
+        return CombinatorialScoreResult(
+            mutations=mutations,
+            variant_sequence=sequence,
+            score=total,
+            additive_score=total,
+            scoring_method=method,
+        )
+
+    def score_sequence_plausibility(self, sequence: str) -> float:
+        return 4.2
+
+    def get_masked_marginal_logits(
+        self,
+        sequence: str,
+        position_1based: int,
+    ) -> Dict[str, float]:
+        ref_seq = validate_amino_acid_string(sequence)
+        seq_len = len(ref_seq)
+        if position_1based < 1 or position_1based > seq_len:
+            raise CoordinateOutOfBoundsError(position_1based, seq_len, f"pos={position_1based}")
+        wt = ref_seq[position_1based - 1]
+        logits: Dict[str, float] = {}
+        for aa in sorted(STANDARD_AMINO_ACIDS):
+            if aa == wt:
+                logits[aa] = 3.0
+            else:
+                # Deterministic pseudo-logit
+                logits[aa] = float(((hash((position_1based, aa)) % 100) / 20.0) - 2.5)
+        return logits
+
+    def get_wildtype_marginal_logits(
+        self,
+        sequence: str,
+    ) -> Dict[int, Dict[str, float]]:
+        ref_seq = validate_amino_acid_string(sequence)
+        all_logits: Dict[int, Dict[str, float]] = {}
+        for pos_1b in range(1, len(ref_seq) + 1):
+            all_logits[pos_1b] = self.get_masked_marginal_logits(ref_seq, pos_1b)
+        return all_logits
+

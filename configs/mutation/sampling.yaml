@@ -1,0 +1,25 @@
+# EVANTHEA Sampling Parameter Grids for Benchmarking & Search
+temperatures:
+  - 0.1
+  - 0.5
+  - 1.0
+  - 1.5
+  - 2.0
+
+truncation:
+  top_k_values: [null, 3, 5, 10]
+  top_p_values: [null, 0.7, 0.9, 0.95]
+
+position_strategies:
+  - "uniform"
+  - "entropy_weighted"
+  - "conservation_weighted"
+
+degree_distributions:
+  - mode: "fixed"
+    k: 1
+  - mode: "uniform"
+    min_k: 1
+    max_k: 3
+  - mode: "poisson"
+    lambda: 2.0

@@ -1,0 +1,17 @@
+# EVANTHEA GFP Specific Biological Constraints
+protein_id: "GFP_AEQVI"
+
+# Fluorophore cyclization triad Thr65-Tyr66-Gly67 in avGFP
+protected_positions:
+  - 65
+  - 66
+  - 67
+
+# Avoid unpaired free cysteines causing aberrant intermolecular disulfides
+disallowed_residues:
+  - "C"
+
+# Biophysical and mutational boundaries
+max_mutations: 5
+max_abs_charge_delta: 2.0
+min_delta_log_p: -4.0
