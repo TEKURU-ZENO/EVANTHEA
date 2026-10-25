@@ -1,0 +1,4 @@
+uniprot_id	mutation	ddG	dTm	pH	temperature	method
+P42212	K3E	-0.45	1.2	7.4	25.0	CD
+P42212	F8L	1.20	-3.1	7.4	25.0	DSC
+P42212	M1A	2.80	-8.5	7.0	25.0	Fluorescence

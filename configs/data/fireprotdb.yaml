@@ -1,0 +1,14 @@
+# FireProtDB protein stability benchmark configuration
+name: "FireProtDB_Curated"
+source: "FireProtDB"
+version: "2.0"
+sign_convention: "ddg_negative_stabilizing"  # dG_mut - dG_wt; negative value indicates stabilization
+
+columns:
+  mutation: "mutation"
+  uniprot_id: "uniprot_id"
+  ddg: "ddG"
+  dtm: "dTm"
+  method: "method"
+  ph: "pH"
+  temperature: "temperature"

@@ -1,0 +1,21 @@
+# ESM-2 model configuration
+primary_checkpoint: "facebook/esm2_t30_150M_UR50D"
+test_checkpoint: "facebook/esm2_t12_35M_UR50D"
+
+torch_dtype: "float16"
+max_sequence_length: 1022
+
+batching:
+  default_batch_size: 16
+  length_thresholds:
+    short: 200
+    short_batch_size: 32
+    medium: 450
+    medium_batch_size: 16
+    long: 800
+    long_batch_size: 8
+    very_long_batch_size: 2
+
+scoring:
+  default_single_method: "masked_marginal"
+  default_combinatorial_method: "additive"

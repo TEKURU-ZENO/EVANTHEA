@@ -1,0 +1,32 @@
+# ProteinGym GFP benchmark configuration
+name: "GFP_AEQVI_Sarkisyan_2016"
+source: "ProteinGym"
+uniprot_id: "P42212"
+protein_name: "Green Fluorescent Protein"
+organism: "Aequorea victoria"
+assay_type: "Fluorescence"
+
+raw_csv_url: "https://raw.githubusercontent.com/OATML-Markslab/ProteinGym/main/benchmarks/DMS_zero_shot/substitutions/GFP_AEQVI_Sarkisyan_2016.csv"
+raw_filename: "GFP_AEQVI_Sarkisyan_2016.csv"
+
+columns:
+  mutant: "mutant"
+  mutated_sequence: "mutated_sequence"
+  score: "DMS_score"
+  score_bin: "DMS_score_bin"
+
+normalization:
+  method: "robust_z_score"
+
+splits:
+  random:
+    train_ratio: 0.8
+    val_ratio: 0.1
+    test_ratio: 0.1
+  position_held_out:
+    test_fraction: 0.2
+    val_fraction: 0.1
+  mutation_order:
+    train_max_order: 1
+    val_order: 2
+    test_min_order: 3

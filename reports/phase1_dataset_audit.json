@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-10-24T22:41:44.548623+00:00",
+  "phase": "Phase 1 - Dataset Ingestion and Protein Intelligence",
+  "status": "PASSED",
+  "protein_target": {
+    "id": "GFP_AEQVI_Sarkisyan_2016",
+    "length": 238,
+    "organism": "Aequorea victoria"
+  },
+  "ingestion_audit": {
+    "total_records_processed": 10,
+    "valid_records": 10,
+    "invalid_records": 0,
+    "validity_rate": 1.0,
+    "wildtype_records": 1,
+    "single_mutants": 6,
+    "multi_mutants": 3
+  },
+  "leakage_resistance_audit": {
+    "random_split": {
+      "strategy": "random",
+      "hypothesis": "In-distribution generalization across the same assay distribution.",
+      "train_count": 8,
+      "val_count": 1,
+      "test_count": 1,
+      "cross_split_leakage_overlap": 0
+    },
+    "position_held_out_split": {
+      "strategy": "position_held_out",
+      "hypothesis": "Generalization to mutations involving residue positions absent from training.",
+      "train_count": 5,
+      "val_count": 2,
+      "test_count": 3,
+      "positional_leakage_overlap": 0,
+      "held_out_positions": 47
+    },
+    "mutation_order_split": {
+      "strategy": "mutation_order",
+      "hypothesis": "Generalization from lower-order to higher-order combinations (epistatic extrapolation).",
+      "train_count": 7,
+      "val_count": 2,
+      "test_count": 1,
+      "train_max_order": 1,
+      "test_min_order": 3
+    }
+  },
+  "cache_integrity_audit": {
+    "sqlite_connected": true,
+    "hdf5_persisted": true,
+    "roundtrip_verified": true
+  }
+}

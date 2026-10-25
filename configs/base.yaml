@@ -1,0 +1,17 @@
+defaults:
+  - _self_
+  - data: proteingym
+  - models: esm2
+
+project:
+  name: "EVANTHEA"
+  version: "0.1.0"
+  random_seed: 42
+  device: "auto"  # "auto", "cuda", or "cpu"
+
+paths:
+  data_raw_dir: "data/raw"
+  data_processed_dir: "data/processed"
+  data_splits_dir: "data/splits"
+  cache_dir: "data/interim/cache"
+  reports_dir: "reports"
