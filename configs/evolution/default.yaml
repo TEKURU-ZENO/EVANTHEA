@@ -1,0 +1,21 @@
+# EVANTHEA Default Evolutionary Optimization Settings
+population_size: 40
+max_generations: 25
+max_evaluations: 1000
+
+selection:
+  tournament_size: 2
+  use_crowding: true
+
+crossover:
+  enabled: true
+  rate: 0.3
+  operator_type: "single_point"
+
+mutation:
+  operator_type: "esm2_point"
+  temperature: 1.0
+  position_strategy: "uniform"
+
+elitism:
+  ratio: 0.05

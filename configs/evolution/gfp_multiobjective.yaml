@@ -1,0 +1,29 @@
+# EVANTHEA Multi-Objective Optimization for GFP
+protein_id: "GFP_AEQVI"
+
+objectives:
+  - name: "predicted_fitness"
+    direction: "maximize"
+    weight: 1.0
+    description: "Predicted GFP fluorescence from trained Phase 2 surrogate"
+
+  - name: "esm2_plausibility"
+    direction: "maximize"
+    weight: 1.0
+    description: "Zero-shot masked-marginal log-odds plausibility from ESM-2"
+
+  - name: "mutational_parsimony"
+    direction: "maximize"
+    weight: 1.0
+    description: "Mutational parsimony relative to wild-type (-Hamming distance)"
+
+constraints:
+  protected_positions: [65, 66, 67]
+  disallow_cysteine: true
+  max_charge_delta: 2.0
+  max_mutations: 5
+
+reference_point:
+  predicted_fitness: 0.0
+  esm2_plausibility: -8.0
+  mutational_parsimony: -6.0

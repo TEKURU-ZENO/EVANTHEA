@@ -1,0 +1,1336 @@
+{
+  "algorithm_name": "NSGA-II",
+  "generations": [
+    {
+      "generation": 0,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 3,
+      "pairwise_diversity": 1.9130434782608696,
+      "hypervolume": 478.42110260009764,
+      "spacing_metric": 1.8338572897229306,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 3.219495153427124,
+          "std": 1.307585145394673,
+          "min": 0.8544316291809082,
+          "max": 5.031068801879883,
+          "median": 3.3998494148254395
+        },
+        "esm2_plausibility": {
+          "mean": -1.4119999999844537,
+          "std": 0.7854018079768612,
+          "min": -3.1499999999417954,
+          "max": 0.0,
+          "median": -1.2999999999885754
+        },
+        "mutational_parsimony": {
+          "mean": -0.96,
+          "std": 0.19595917942265428,
+          "min": -1.0,
+          "max": 0.0,
+          "median": -1.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.031068801879883,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.01205754280090332
+    },
+    {
+      "generation": 1,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 4,
+      "pairwise_diversity": 2.8152173913043477,
+      "hypervolume": 488.19890279134114,
+      "spacing_metric": 1.555921052991055,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 3.526554183959961,
+          "std": 1.3211080167222464,
+          "min": 0.8544316291809082,
+          "max": 5.143989562988281,
+          "median": 3.4547348022460938
+        },
+        "esm2_plausibility": {
+          "mean": -0.9679999999902228,
+          "std": 0.6421650877916381,
+          "min": -3.1499999999200994,
+          "max": 0.0,
+          "median": -0.7499999999965872
+        },
+        "mutational_parsimony": {
+          "mean": -1.44,
+          "std": 0.6974238309665077,
+          "min": -3.0,
+          "max": 0.0,
+          "median": -1.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.143989562988281,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.09308481216430664
+    },
+    {
+      "generation": 2,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.2681159420289854,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 3.983924694061279,
+          "std": 1.1963459285158373,
+          "min": 0.8544316291809082,
+          "max": 5.222864627838135,
+          "median": 4.412862777709961
+        },
+        "esm2_plausibility": {
+          "mean": -0.9779999999903896,
+          "std": 0.7120505599863541,
+          "min": -3.1499999999200994,
+          "max": 0.0,
+          "median": -0.7499999999958353
+        },
+        "mutational_parsimony": {
+          "mean": -1.68,
+          "std": 0.8818163074019442,
+          "min": -4.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.0956733226776123
+    },
+    {
+      "generation": 3,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.4166666666666665,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.144139633178711,
+          "std": 1.023409309673464,
+          "min": 1.5738096237182617,
+          "max": 5.222864627838135,
+          "median": 4.592081069946289
+        },
+        "esm2_plausibility": {
+          "mean": -0.9139999999930934,
+          "std": 0.5609848482709427,
+          "min": -2.699999999944575,
+          "max": 0.0,
+          "median": -0.7499999999958353
+        },
+        "mutational_parsimony": {
+          "mean": -1.76,
+          "std": 0.9068627239003708,
+          "min": -4.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.15066003799438477
+    },
+    {
+      "generation": 4,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.822463768115942,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.285022668838501,
+          "std": 0.883168309221357,
+          "min": 2.008481025695801,
+          "max": 5.222864627838135,
+          "median": 4.592081069946289
+        },
+        "esm2_plausibility": {
+          "mean": -0.8319999999953906,
+          "std": 0.42139767440861503,
+          "min": -2.399999999978486,
+          "max": 0.0,
+          "median": -0.7499999999958353
+        },
+        "mutational_parsimony": {
+          "mean": -2.0,
+          "std": 1.2649110640673518,
+          "min": -5.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.10823392868041992
+    },
+    {
+      "generation": 5,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.851449275362319,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.2262960624694825,
+          "std": 1.1115120851322913,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.801129341125488
+        },
+        "esm2_plausibility": {
+          "mean": -0.8259999999954727,
+          "std": 0.36003333178778535,
+          "min": -1.7499999999861149,
+          "max": 0.0,
+          "median": -0.6999999999971076
+        },
+        "mutational_parsimony": {
+          "mean": -2.08,
+          "std": 1.3833293172632466,
+          "min": -5.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.09577322006225586
+    },
+    {
+      "generation": 6,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.717391304347826,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.359315376281739,
+          "std": 1.0680977395384985,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.830984115600586
+        },
+        "esm2_plausibility": {
+          "mean": -0.8179999999955926,
+          "std": 0.36465874457927894,
+          "min": -1.7499999999861149,
+          "max": 0.0,
+          "median": -0.6999999999971076
+        },
+        "mutational_parsimony": {
+          "mean": -1.96,
+          "std": 1.3108775686539151,
+          "min": -5.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.09743332862854004
+    },
+    {
+      "generation": 7,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 4.115942028985507,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.374399585723877,
+          "std": 1.0764348366369678,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.844576835632324
+        },
+        "esm2_plausibility": {
+          "mean": -0.8419999999955088,
+          "std": 0.39132595109188484,
+          "min": -1.7499999999861149,
+          "max": 0.0,
+          "median": -0.6999999999971076
+        },
+        "mutational_parsimony": {
+          "mean": -2.2,
+          "std": 1.624807680927192,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.09679007530212402
+    },
+    {
+      "generation": 8,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.8442028985507246,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.368273363113404,
+          "std": 1.1464615932124893,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.895750045776367
+        },
+        "esm2_plausibility": {
+          "mean": -0.9679999999924483,
+          "std": 0.6039668864983244,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.6999999999971076
+        },
+        "mutational_parsimony": {
+          "mean": -2.0,
+          "std": 1.5491933384829668,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.11822891235351562
+    },
+    {
+      "generation": 9,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.8442028985507246,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.368273363113404,
+          "std": 1.1464615932124893,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.895750045776367
+        },
+        "esm2_plausibility": {
+          "mean": -0.9679999999924483,
+          "std": 0.6039668864983244,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.6999999999971076
+        },
+        "mutational_parsimony": {
+          "mean": -2.0,
+          "std": 1.5491933384829668,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.10835695266723633
+    },
+    {
+      "generation": 10,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.536231884057971,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.201685600280761,
+          "std": 1.3134411741832046,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.895750045776367
+        },
+        "esm2_plausibility": {
+          "mean": -0.9539999999925771,
+          "std": 0.611542312506952,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.8,
+          "std": 1.4142135623730951,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -1.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.10093975067138672
+    },
+    {
+      "generation": 11,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.528985507246377,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.214182319641114,
+          "std": 1.3173060513785122,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.895750045776367
+        },
+        "esm2_plausibility": {
+          "mean": -0.9539999999925314,
+          "std": 0.6115423125069787,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.8,
+          "std": 1.4142135623730951,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -1.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.09618711471557617
+    },
+    {
+      "generation": 12,
+      "population_size": 25,
+      "unique_sequences": 23,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.430830039525692,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 3.9756476783752444,
+          "std": 1.4461292336073062,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.830984115600586
+        },
+        "esm2_plausibility": {
+          "mean": -0.9359999999925493,
+          "std": 0.6165257496538399,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.72,
+          "std": 1.4288456879593403,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -1.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.0972294807434082
+    },
+    {
+      "generation": 13,
+      "population_size": 25,
+      "unique_sequences": 23,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.4150197628458496,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.120648536682129,
+          "std": 1.3129759593696317,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.830984115600586
+        },
+        "esm2_plausibility": {
+          "mean": -0.9059999999927143,
+          "std": 0.6040397337810027,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.72,
+          "std": 1.4288456879593403,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -1.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.12724971771240234
+    },
+    {
+      "generation": 14,
+      "population_size": 25,
+      "unique_sequences": 23,
+      "pareto_front_size": 6,
+      "pairwise_diversity": 3.4150197628458496,
+      "hypervolume": 494.3963656711578,
+      "spacing_metric": 1.322937184236422,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.120648536682129,
+          "std": 1.3129759593696317,
+          "min": 0.8842861652374268,
+          "max": 5.222864627838135,
+          "median": 4.830984115600586
+        },
+        "esm2_plausibility": {
+          "mean": -0.9059999999927143,
+          "std": 0.6040397337810027,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.72,
+          "std": 1.4288456879593403,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -1.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.09562301635742188
+    },
+    {
+      "generation": 15,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 7,
+      "pairwise_diversity": 3.5471014492753623,
+      "hypervolume": 496.8729332478841,
+      "spacing_metric": 1.1936217294072364,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.426438322067261,
+          "std": 0.9632986978257307,
+          "min": 1.5339841842651367,
+          "max": 5.253837585449219,
+          "median": 4.895750045776367
+        },
+        "esm2_plausibility": {
+          "mean": -0.9279999999924502,
+          "std": 0.6043310351010267,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.84,
+          "std": 1.4333178293735134,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -1.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.253837585449219,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.11467766761779785
+    },
+    {
+      "generation": 16,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 7,
+      "pairwise_diversity": 3.4565217391304346,
+      "hypervolume": 496.9780099995931,
+      "spacing_metric": 1.110365580489424,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.451270341873169,
+          "std": 0.9588916256343775,
+          "min": 1.5339841842651367,
+          "max": 5.253837585449219,
+          "median": 4.895750045776367
+        },
+        "esm2_plausibility": {
+          "mean": -0.9259999999924139,
+          "std": 0.6049991735418255,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.8,
+          "std": 1.4142135623730951,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -1.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.253837585449219,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.10109138488769531
+    },
+    {
+      "generation": 17,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 7,
+      "pairwise_diversity": 3.572463768115942,
+      "hypervolume": 496.9780099995931,
+      "spacing_metric": 1.110365580489424,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.514559049606323,
+          "std": 0.9431989018544836,
+          "min": 1.5339841842651367,
+          "max": 5.253837585449219,
+          "median": 5.001214504241943
+        },
+        "esm2_plausibility": {
+          "mean": -0.9599999999921565,
+          "std": 0.6151422599580021,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.88,
+          "std": 1.4232357499725756,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.253837585449219,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.0987389087677002
+    },
+    {
+      "generation": 18,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 8,
+      "pairwise_diversity": 3.6340579710144927,
+      "hypervolume": 497.0830867513021,
+      "spacing_metric": 1.0668290013260846,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.52465126991272,
+          "std": 0.9485582561661343,
+          "min": 1.5339841842651367,
+          "max": 5.253837585449219,
+          "median": 5.001214504241943
+        },
+        "esm2_plausibility": {
+          "mean": -0.9119999999927576,
+          "std": 0.5901321885704469,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.92,
+          "std": 1.4119490075778232,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.253837585449219,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.10040926933288574
+    },
+    {
+      "generation": 19,
+      "population_size": 25,
+      "unique_sequences": 24,
+      "pareto_front_size": 8,
+      "pairwise_diversity": 3.572463768115942,
+      "hypervolume": 497.0830867513021,
+      "spacing_metric": 1.0668290013260846,
+      "objective_metrics": {
+        "predicted_fitness": {
+          "mean": 4.52465126991272,
+          "std": 0.9485582561661343,
+          "min": 1.5339841842651367,
+          "max": 5.253837585449219,
+          "median": 5.001214504241943
+        },
+        "esm2_plausibility": {
+          "mean": -0.8919999999928904,
+          "std": 0.5764859061478532,
+          "min": -2.999999999931132,
+          "max": 0.0,
+          "median": -0.69999999999638
+        },
+        "mutational_parsimony": {
+          "mean": -1.88,
+          "std": 1.3948476619330155,
+          "min": -7.0,
+          "max": 0.0,
+          "median": -2.0
+        }
+      },
+      "best_by_objective": {
+        "predicted_fitness": 5.253837585449219,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "elapsed_time_s": 0.12505769729614258
+    }
+  ],
+  "total_evaluations": 500,
+  "total_runtime_s": 5.775552272796631,
+  "final_pareto_front": [
+    {
+      "variant": {
+        "variant_id": "0a20c8ca6324aebb",
+        "protein_id": "GFP_AEQVI",
+        "mutations": [
+          {
+            "ref_residue": "N",
+            "position_1based": 146,
+            "mut_residue": "I"
+          }
+        ],
+        "mutated_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILLHKLEYNYISHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+        "raw_score": null,
+        "normalized_score": null,
+        "score_metric_name": null,
+        "is_wildtype": false,
+        "num_mutations": 1,
+        "metadata": {
+          "wt_log_prob": -1.415448489830349,
+          "mut_log_prob": -2.6154484898207944,
+          "delta_log_p": -1.1999999999904454,
+          "sampling_prob": 0.09658821041761624,
+          "proposal": {
+            "parent_hash": "17d967a267e4a5b75c30d575bd45fce48ffa5f3bb089e40866c21b56884cf90e",
+            "child_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILLHKLEYNYISHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+            "child_hash": "0a20c8ca6324aebbd6980e46df8836296488cfd21649dfc6be5a5a5cc3a3ba9f",
+            "mutations": [
+              {
+                "ref_residue": "N",
+                "position_1based": 146,
+                "mut_residue": "I"
+              }
+            ],
+            "generator_name": "esm2_point",
+            "temperature": 1.0,
+            "top_k": null,
+            "top_p": null,
+            "position_strategy": "uniform",
+            "seed": 42,
+            "step_proposal_scores": [
+              -1.1999999999904454
+            ],
+            "final_variant_score": -1.1999999999904454,
+            "is_accepted": true,
+            "rejection_reasons": [],
+            "generation_time_ms": 0.18209998961538076,
+            "metadata": {
+              "wt_log_prob": -1.415448489830349,
+              "mut_log_prob": -2.6154484898207944,
+              "delta_log_p": -1.1999999999904454,
+              "sampling_prob": 0.09658821041761624
+            }
+          }
+        }
+      },
+      "fitness_values": {
+        "predicted_fitness": 5.253837585449219,
+        "esm2_plausibility": -1.1999999999904454,
+        "mutational_parsimony": -2.0
+      },
+      "objectives_vector": [
+        5.253837585449219,
+        -1.1999999999904454,
+        -2.0
+      ],
+      "rank": 0,
+      "crowding_distance": null,
+      "generation": 15,
+      "parent_ids": [
+        "17d967a267e4a5b7"
+      ],
+      "is_evaluated": true,
+      "is_feasible": true,
+      "feasibility_violations": [],
+      "metadata": {}
+    },
+    {
+      "variant": {
+        "variant_id": "3a411c9d3507da25",
+        "protein_id": "GFP_AEQVI",
+        "mutations": [
+          {
+            "ref_residue": "R",
+            "position_1based": 109,
+            "mut_residue": "I"
+          }
+        ],
+        "mutated_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTIAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHVMDELYK",
+        "raw_score": null,
+        "normalized_score": null,
+        "score_metric_name": null,
+        "is_wildtype": false,
+        "num_mutations": 1,
+        "metadata": {
+          "wt_log_prob": -1.2728104588424125,
+          "mut_log_prob": -1.9728104588387925,
+          "delta_log_p": -0.69999999999638,
+          "sampling_prob": 0.19315814466145778,
+          "proposal": {
+            "parent_hash": "fd37da75359e5e701a5a9cec302790b9aabc3bb9461cc410b86ce8c8212c1775",
+            "child_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTIAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHVMDELYK",
+            "child_hash": "3a411c9d3507da25487a7c53a6678a15cff12dea222091292c251dc69b46a426",
+            "mutations": [
+              {
+                "ref_residue": "R",
+                "position_1based": 109,
+                "mut_residue": "I"
+              }
+            ],
+            "generator_name": "esm2_point",
+            "temperature": 1.0,
+            "top_k": null,
+            "top_p": null,
+            "position_strategy": "uniform",
+            "seed": 42,
+            "step_proposal_scores": [
+              -0.69999999999638
+            ],
+            "final_variant_score": -0.69999999999638,
+            "is_accepted": true,
+            "rejection_reasons": [],
+            "generation_time_ms": 0.1246000174432993,
+            "metadata": {
+              "wt_log_prob": -1.2728104588424125,
+              "mut_log_prob": -1.9728104588387925,
+              "delta_log_p": -0.69999999999638,
+              "sampling_prob": 0.19315814466145778
+            }
+          }
+        }
+      },
+      "fitness_values": {
+        "predicted_fitness": 5.222864627838135,
+        "esm2_plausibility": -0.69999999999638,
+        "mutational_parsimony": -2.0
+      },
+      "objectives_vector": [
+        5.222864627838135,
+        -0.69999999999638,
+        -2.0
+      ],
+      "rank": 0,
+      "crowding_distance": 0.10046376986832856,
+      "generation": 2,
+      "parent_ids": [
+        "fd37da75359e5e70"
+      ],
+      "is_evaluated": true,
+      "is_feasible": true,
+      "feasibility_violations": [],
+      "metadata": {}
+    },
+    {
+      "variant": {
+        "variant_id": "80ceec9d4193494d",
+        "protein_id": "GFP_AEQVI",
+        "mutations": [
+          {
+            "ref_residue": "K",
+            "position_1based": 158,
+            "mut_residue": "I"
+          }
+        ],
+        "mutated_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSLEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQINGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+        "raw_score": null,
+        "normalized_score": null,
+        "score_metric_name": null,
+        "is_wildtype": false,
+        "num_mutations": 1,
+        "metadata": {
+          "wt_log_prob": -1.3302678099240723,
+          "mut_log_prob": -1.9802678099206097,
+          "delta_log_p": -0.6499999999965373,
+          "sampling_prob": 0.18764746413024488,
+          "proposal": {
+            "parent_hash": "9d8eee4721eb594581278bb0fb97c4ca91df1d86d59fcd277a62f02051e1426f",
+            "child_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSLEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQINGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+            "child_hash": "80ceec9d4193494d7f98401d06883a653e4b69580a7f61c0c831b9f713845645",
+            "mutations": [
+              {
+                "ref_residue": "K",
+                "position_1based": 158,
+                "mut_residue": "I"
+              }
+            ],
+            "generator_name": "esm2_point",
+            "temperature": 1.0,
+            "top_k": null,
+            "top_p": null,
+            "position_strategy": "uniform",
+            "seed": 42,
+            "step_proposal_scores": [
+              -0.6499999999965373
+            ],
+            "final_variant_score": -0.6499999999965373,
+            "is_accepted": true,
+            "rejection_reasons": [],
+            "generation_time_ms": 0.13529998250305653,
+            "metadata": {
+              "wt_log_prob": -1.3302678099240723,
+              "mut_log_prob": -1.9802678099206097,
+              "delta_log_p": -0.6499999999965373,
+              "sampling_prob": 0.18764746413024488
+            }
+          }
+        }
+      },
+      "fitness_values": {
+        "predicted_fitness": 5.148055553436279,
+        "esm2_plausibility": -0.6499999999965373,
+        "mutational_parsimony": -2.0
+      },
+      "objectives_vector": [
+        5.148055553436279,
+        -0.6499999999965373,
+        -2.0
+      ],
+      "rank": 0,
+      "crowding_distance": 0.12717466668387123,
+      "generation": 18,
+      "parent_ids": [
+        "9d8eee4721eb5945"
+      ],
+      "is_evaluated": true,
+      "is_feasible": true,
+      "feasibility_violations": [],
+      "metadata": {}
+    },
+    {
+      "variant": {
+        "variant_id": "bf00a442f3169fdb",
+        "protein_id": "GFP_AEQVI",
+        "mutations": [
+          {
+            "ref_residue": "Q",
+            "position_1based": 177,
+            "mut_residue": "V"
+          }
+        ],
+        "mutated_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSTEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVVLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+        "raw_score": null,
+        "normalized_score": null,
+        "score_metric_name": null,
+        "is_wildtype": false,
+        "num_mutations": 1,
+        "metadata": {
+          "wt_log_prob": -1.5066185965197112,
+          "mut_log_prob": -2.056618596516403,
+          "delta_log_p": -0.549999999996692,
+          "sampling_prob": 0.16430529270668287,
+          "proposal": {
+            "parent_hash": "72860aa8fb6c8896f7d1bff7433bda5dddbf52ec36deb50f2ae4440b4f6163b8",
+            "child_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSTEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVVLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+            "child_hash": "bf00a442f3169fdb66834ec346513b2ca628f3094c87364c97cb4e186ba0e3b6",
+            "mutations": [
+              {
+                "ref_residue": "Q",
+                "position_1based": 177,
+                "mut_residue": "V"
+              }
+            ],
+            "generator_name": "esm2_point",
+            "temperature": 1.0,
+            "top_k": null,
+            "top_p": null,
+            "position_strategy": "uniform",
+            "seed": 42,
+            "step_proposal_scores": [
+              -0.549999999996692
+            ],
+            "final_variant_score": -0.549999999996692,
+            "is_accepted": true,
+            "rejection_reasons": [],
+            "generation_time_ms": 0.16030005645006895,
+            "metadata": {
+              "wt_log_prob": -1.5066185965197112,
+              "mut_log_prob": -2.056618596516403,
+              "delta_log_p": -0.549999999996692,
+              "sampling_prob": 0.16430529270668287
+            }
+          }
+        }
+      },
+      "fitness_values": {
+        "predicted_fitness": 4.591007709503174,
+        "esm2_plausibility": -0.549999999996692,
+        "mutational_parsimony": -2.0
+      },
+      "objectives_vector": [
+        4.591007709503174,
+        -0.549999999996692,
+        -2.0
+      ],
+      "rank": 0,
+      "crowding_distance": 1.8761778450644022,
+      "generation": 16,
+      "parent_ids": [
+        "72860aa8fb6c8896"
+      ],
+      "is_evaluated": true,
+      "is_feasible": true,
+      "feasibility_violations": [],
+      "metadata": {}
+    },
+    {
+      "variant": {
+        "variant_id": "ced7e0502859634e",
+        "protein_id": "GFP_AEQVI",
+        "mutations": [
+          {
+            "ref_residue": "N",
+            "position_1based": 159,
+            "mut_residue": "F"
+          }
+        ],
+        "mutated_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKFGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+        "raw_score": null,
+        "normalized_score": null,
+        "score_metric_name": null,
+        "is_wildtype": false,
+        "num_mutations": 1,
+        "metadata": {
+          "wt_log_prob": -1.0485084175503065,
+          "mut_log_prob": -1.7485084175474142,
+          "delta_log_p": -0.6999999999971076,
+          "sampling_prob": 0.26793324768237775,
+          "proposal": {
+            "parent_hash": "44f2688342a00e4b01e82be5e655b26499f981515d5da9a6076315627355b403",
+            "child_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKFGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+            "child_hash": "ced7e0502859634eac798d1b98b9211ad2f63f5d65235829e51c71c64eb348f8",
+            "mutations": [
+              {
+                "ref_residue": "N",
+                "position_1based": 159,
+                "mut_residue": "F"
+              }
+            ],
+            "generator_name": "esm2_point",
+            "temperature": 1.0,
+            "top_k": null,
+            "top_p": null,
+            "position_strategy": "uniform",
+            "seed": 42,
+            "step_proposal_scores": [
+              -0.6999999999971076
+            ],
+            "final_variant_score": -0.6999999999971076,
+            "is_accepted": true,
+            "rejection_reasons": [],
+            "generation_time_ms": 0.12780004180967808,
+            "metadata": {
+              "wt_log_prob": -1.0485084175503065,
+              "mut_log_prob": -1.7485084175474142,
+              "delta_log_p": -0.6999999999971076,
+              "sampling_prob": 0.26793324768237775
+            }
+          }
+        }
+      },
+      "fitness_values": {
+        "predicted_fitness": 5.143989562988281,
+        "esm2_plausibility": -0.6999999999971076,
+        "mutational_parsimony": -1.0
+      },
+      "objectives_vector": [
+        5.143989562988281,
+        -0.6999999999971076,
+        -1.0
+      ],
+      "rank": 0,
+      "crowding_distance": 0.9816917184011675,
+      "generation": 1,
+      "parent_ids": [
+        "44f2688342a00e4b"
+      ],
+      "is_evaluated": true,
+      "is_feasible": true,
+      "feasibility_violations": [],
+      "metadata": {}
+    },
+    {
+      "variant": {
+        "variant_id": "9d8eee4721eb5945",
+        "protein_id": "GFP_AEQVI",
+        "mutations": [
+          {
+            "ref_residue": "G",
+            "position_1based": 31,
+            "mut_residue": "L"
+          }
+        ],
+        "mutated_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSLEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+        "raw_score": null,
+        "normalized_score": null,
+        "score_metric_name": null,
+        "is_wildtype": false,
+        "num_mutations": 1,
+        "metadata": {
+          "wt_log_prob": -1.3316259133849064,
+          "mut_log_prob": -1.9316259133817923,
+          "delta_log_p": -0.5999999999968859,
+          "sampling_prob": 0.19690456960519043,
+          "proposal": {
+            "parent_hash": "44f2688342a00e4b01e82be5e655b26499f981515d5da9a6076315627355b403",
+            "child_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSLEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+            "child_hash": "9d8eee4721eb594581278bb0fb97c4ca91df1d86d59fcd277a62f02051e1426f",
+            "mutations": [
+              {
+                "ref_residue": "G",
+                "position_1based": 31,
+                "mut_residue": "L"
+              }
+            ],
+            "generator_name": "esm2_point",
+            "temperature": 1.0,
+            "top_k": null,
+            "top_p": null,
+            "position_strategy": "uniform",
+            "seed": 42,
+            "step_proposal_scores": [
+              -0.5999999999968859
+            ],
+            "final_variant_score": -0.5999999999968859,
+            "is_accepted": true,
+            "rejection_reasons": [],
+            "generation_time_ms": 0.1238000113517046,
+            "metadata": {
+              "wt_log_prob": -1.3316259133849064,
+              "mut_log_prob": -1.9316259133817923,
+              "delta_log_p": -0.5999999999968859,
+              "sampling_prob": 0.19690456960519043
+            }
+          }
+        }
+      },
+      "fitness_values": {
+        "predicted_fitness": 5.031068801879883,
+        "esm2_plausibility": -0.5999999999968859,
+        "mutational_parsimony": -1.0
+      },
+      "objectives_vector": [
+        5.031068801879883,
+        -0.5999999999968859,
+        -1.0
+      ],
+      "rank": 0,
+      "crowding_distance": 0.28626697326688094,
+      "generation": 0,
+      "parent_ids": [
+        "WT_ANCESTOR"
+      ],
+      "is_evaluated": true,
+      "is_feasible": true,
+      "feasibility_violations": [],
+      "metadata": {}
+    },
+    {
+      "variant": {
+        "variant_id": "9d8eee4721eb5945",
+        "protein_id": "GFP_AEQVI",
+        "mutations": [
+          {
+            "ref_residue": "G",
+            "position_1based": 31,
+            "mut_residue": "L"
+          }
+        ],
+        "mutated_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSLEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+        "raw_score": null,
+        "normalized_score": null,
+        "score_metric_name": null,
+        "is_wildtype": false,
+        "num_mutations": 1,
+        "metadata": {
+          "wt_log_prob": -1.3316259133849064,
+          "mut_log_prob": -1.9316259133817923,
+          "delta_log_p": -0.5999999999968859,
+          "sampling_prob": 0.19690456960519043,
+          "proposal": {
+            "parent_hash": "44f2688342a00e4b01e82be5e655b26499f981515d5da9a6076315627355b403",
+            "child_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSLEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+            "child_hash": "9d8eee4721eb594581278bb0fb97c4ca91df1d86d59fcd277a62f02051e1426f",
+            "mutations": [
+              {
+                "ref_residue": "G",
+                "position_1based": 31,
+                "mut_residue": "L"
+              }
+            ],
+            "generator_name": "esm2_point",
+            "temperature": 1.0,
+            "top_k": null,
+            "top_p": null,
+            "position_strategy": "uniform",
+            "seed": 42,
+            "step_proposal_scores": [
+              -0.5999999999968859
+            ],
+            "final_variant_score": -0.5999999999968859,
+            "is_accepted": true,
+            "rejection_reasons": [],
+            "generation_time_ms": 0.12309988960623741,
+            "metadata": {
+              "wt_log_prob": -1.3316259133849064,
+              "mut_log_prob": -1.9316259133817923,
+              "delta_log_p": -0.5999999999968859,
+              "sampling_prob": 0.19690456960519043
+            }
+          }
+        }
+      },
+      "fitness_values": {
+        "predicted_fitness": 5.031068801879883,
+        "esm2_plausibility": -0.5999999999968859,
+        "mutational_parsimony": -1.0
+      },
+      "objectives_vector": [
+        5.031068801879883,
+        -0.5999999999968859,
+        -1.0
+      ],
+      "rank": 0,
+      "crowding_distance": 0.604431708310503,
+      "generation": 0,
+      "parent_ids": [
+        "WT_ANCESTOR"
+      ],
+      "is_evaluated": true,
+      "is_feasible": true,
+      "feasibility_violations": [],
+      "metadata": {}
+    },
+    {
+      "variant": {
+        "variant_id": "WT_ANCESTOR",
+        "protein_id": "GFP_AEQVI",
+        "mutations": [],
+        "mutated_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+        "raw_score": null,
+        "normalized_score": null,
+        "score_metric_name": null,
+        "is_wildtype": true,
+        "num_mutations": 0,
+        "metadata": {
+          "origin": "wildtype_ancestor"
+        }
+      },
+      "fitness_values": {
+        "predicted_fitness": 3.4547348022460938,
+        "esm2_plausibility": 0.0,
+        "mutational_parsimony": 0.0
+      },
+      "objectives_vector": [
+        3.4547348022460938,
+        0.0,
+        0.0
+      ],
+      "rank": 0,
+      "crowding_distance": null,
+      "generation": 0,
+      "parent_ids": [],
+      "is_evaluated": true,
+      "is_feasible": true,
+      "feasibility_violations": [],
+      "metadata": {}
+    }
+  ],
+  "metadata": {}
+}

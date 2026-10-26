@@ -1,0 +1,69 @@
+{
+  "protein_id": "GFP_AEQVI",
+  "evaluation_budget": 500,
+  "population_size": 25,
+  "max_generations": 20,
+  "seed": 42,
+  "algorithms": {
+    "RandomSearch": {
+      "total_evaluations": 500,
+      "runtime_seconds": 3.449856758117676,
+      "evaluations_per_second": 144.9335537840742,
+      "best_predicted_fitness": 5.038207530975342,
+      "best_esm2_plausibility": -0.599999999996307,
+      "pareto_front_size": 7,
+      "hypervolume": 0.0,
+      "spacing_metric": 0.7149094052076954,
+      "pairwise_diversity": 28.66,
+      "best_variant_mutations": "K158F"
+    },
+    "GreedyHillClimber": {
+      "total_evaluations": 505,
+      "runtime_seconds": 6.074028015136719,
+      "evaluations_per_second": 83.14087434919956,
+      "best_predicted_fitness": 5.253837585449219,
+      "best_esm2_plausibility": -0.599999999996307,
+      "pareto_front_size": 4,
+      "hypervolume": 290.50863759899113,
+      "spacing_metric": 1.0133064731912493,
+      "pairwise_diversity": 1.9166666666666667,
+      "best_variant_mutations": "N146I"
+    },
+    "SingleObjectiveGA": {
+      "total_evaluations": 485,
+      "runtime_seconds": 5.273834228515625,
+      "evaluations_per_second": 91.96345182364753,
+      "best_predicted_fitness": 5.253837585449219,
+      "best_esm2_plausibility": -0.5499999999968526,
+      "pareto_front_size": 6,
+      "hypervolume": 341.58580979956076,
+      "spacing_metric": 4.138225839288094,
+      "pairwise_diversity": 17.073333333333334,
+      "best_variant_mutations": "N146I"
+    },
+    "ESMGuidedSearch": {
+      "total_evaluations": 500,
+      "runtime_seconds": 2.7848284244537354,
+      "evaluations_per_second": 179.54427483196875,
+      "best_predicted_fitness": 5.038207530975342,
+      "best_esm2_plausibility": -0.599999999996307,
+      "pareto_front_size": 6,
+      "hypervolume": 0.0,
+      "spacing_metric": 1.2318791850484943,
+      "pairwise_diversity": 2.0,
+      "best_variant_mutations": "K158F"
+    },
+    "NSGA-II": {
+      "total_evaluations": 500,
+      "runtime_seconds": 5.776552200317383,
+      "evaluations_per_second": 86.55682190018612,
+      "best_predicted_fitness": 5.253837585449219,
+      "best_esm2_plausibility": 0.0,
+      "pareto_front_size": 8,
+      "hypervolume": 497.0830867513021,
+      "spacing_metric": 1.0668290013260846,
+      "pairwise_diversity": 3.572463768115942,
+      "best_variant_mutations": "N146I"
+    }
+  }
+}

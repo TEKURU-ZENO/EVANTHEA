@@ -1,0 +1,22 @@
+# EVANTHEA Budget-Matched Evolutionary Benchmark Grid
+evaluation_budget: 1000
+population_size: 40
+generations: 25
+seed: 42
+
+algorithms:
+  - "RandomSearch"
+  - "GreedyHillClimbing"
+  - "SingleObjectiveGA"
+  - "ESMGuidedSearch"
+  - "NSGA-II"
+
+metrics:
+  - "best_predicted_fitness"
+  - "best_esm2_plausibility"
+  - "pareto_front_size"
+  - "hypervolume"
+  - "spacing"
+  - "pairwise_diversity"
+  - "total_evaluations"
+  - "runtime_seconds"
