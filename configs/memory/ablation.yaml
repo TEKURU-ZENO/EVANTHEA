@@ -1,0 +1,28 @@
+# EVANTHEA Memory Ablation Benchmark Configuration
+# Strictly matched evaluation budget comparing Memory-Free vs Memory-Aware Evolution
+
+evaluation_budget: 300
+population_size: 20
+max_generations: 25
+seeds: [42, 101, 777]
+
+protein:
+  id: "GFP"
+  target_sequence: "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK"
+
+objectives:
+  primary: "predicted_fitness"
+  secondary: "esm2_log_plausibility"
+
+algorithms:
+  - name: "Memory-Free NSGA-II"
+    type: "nsga2_standard"
+    use_memory: false
+  - name: "Memory-Aware NSGA-II"
+    type: "nsga2_memory"
+    use_memory: true
+    archive_injection: true
+
+output:
+  report_json: "reports/phase5/memory_ablation_analysis.json"
+  summary_md: "reports/phase5/benchmark_summary.md"

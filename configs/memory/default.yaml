@@ -1,0 +1,19 @@
+# EVANTHEA Evolutionary Memory Configuration
+memory:
+  db_path: "data/memory/evanthea_memory.db"
+  embedding_dimension: 128
+  vector_metric: "cosine"
+  use_faiss: true
+
+evaluation_bypasser:
+  enabled: true
+  intra_batch_deduplication: true
+
+archive_elitism:
+  enabled: true
+  max_injection: 2
+
+novelty_search:
+  enabled: true
+  k_nearest: 5
+  metric: "cosine"
