@@ -1,0 +1,27 @@
+# EVANTHEA Structural & Biophysical Validation Configuration
+
+predictor:
+  backend: "mock" # options: "mock", "esmfold"
+  mock_base_plddt: 85.0
+  seed: 42
+  device: "auto"
+
+relaxation:
+  enabled: true
+  max_iterations: 100
+  tolerance_kj_mol: 10.0
+
+quality_gates:
+  min_plddt: 70.0
+  max_rmsd: 2.5
+  max_clashes: 10
+  min_contact_preservation: 0.85
+  max_hydrophobic_sasa_delta: 600.0
+
+metrics:
+  clash_tolerance: 0.4
+  min_sequence_separation: 2
+  contact_distance_cutoff: 8.0
+  contact_min_sequence_separation: 4
+  sasa_probe_radius: 1.4
+  sasa_sphere_points: 96

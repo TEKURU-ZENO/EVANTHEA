@@ -1,5 +1,6 @@
 """Persistent SQLite storage layer for evolutionary memory records, evaluations, and lineage DAG."""
 
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import sqlite3
@@ -65,6 +66,27 @@ class PersistentMemoryStore:
                 operator TEXT,
                 generation INTEGER,
                 FOREIGN KEY (child_hash) REFERENCES variants(sequence_hash) ON DELETE CASCADE
+            );
+        """)
+
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS structural_evaluations (
+                sequence_hash TEXT PRIMARY KEY,
+                variant_id TEXT NOT NULL,
+                mean_plddt REAL NOT NULL,
+                plddt_per_residue_json TEXT NOT NULL,
+                disordered_count INTEGER NOT NULL,
+                rmsd_to_reference REAL,
+                clash_count INTEGER NOT NULL,
+                clashes_json TEXT NOT NULL,
+                contact_preservation_ratio REAL,
+                sasa_total REAL,
+                sasa_hydrophobic REAL,
+                is_structurally_viable INTEGER NOT NULL,
+                violations_json TEXT NOT NULL,
+                pdb_text TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                metadata_json TEXT NOT NULL
             );
         """)
 
@@ -207,6 +229,63 @@ class PersistentMemoryStore:
         cur = self.conn.cursor()
         cur.execute("SELECT child_hash FROM lineage_edges WHERE parent_hash = ?;", (parent_hash,))
         return [row["child_hash"] for row in cur.fetchall()]
+
+    def save_structural_evaluation(self, assessment_dict: Dict[str, Any], pdb_text: str) -> None:
+        """Stores a structural assessment and its full 3D PDB text."""
+        cur = self.conn.cursor()
+        created_at = datetime.now(timezone.utc).isoformat()
+        cur.execute("""
+            INSERT OR REPLACE INTO structural_evaluations (
+                sequence_hash, variant_id, mean_plddt, plddt_per_residue_json,
+                disordered_count, rmsd_to_reference, clash_count, clashes_json,
+                contact_preservation_ratio, sasa_total, sasa_hydrophobic,
+                is_structurally_viable, violations_json, pdb_text, created_at, metadata_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """, (
+            assessment_dict["sequence_hash"],
+            assessment_dict["variant_id"],
+            float(assessment_dict["mean_plddt"]),
+            json.dumps(assessment_dict.get("plddt_per_residue", [])),
+            int(assessment_dict.get("disordered_residues_count", 0)),
+            float(assessment_dict["rmsd_to_reference"]) if assessment_dict.get("rmsd_to_reference") is not None else None,
+            int(assessment_dict.get("clash_count", 0)),
+            json.dumps(assessment_dict.get("clashes", [])),
+            float(assessment_dict["contact_preservation_ratio"]) if assessment_dict.get("contact_preservation_ratio") is not None else None,
+            float(assessment_dict["sasa_total"]) if assessment_dict.get("sasa_total") is not None else None,
+            float(assessment_dict["sasa_hydrophobic"]) if assessment_dict.get("sasa_hydrophobic") is not None else None,
+            int(assessment_dict.get("is_structurally_viable", True)),
+            json.dumps(assessment_dict.get("violations", [])),
+            pdb_text,
+            created_at,
+            json.dumps(assessment_dict.get("metadata", {})),
+        ))
+        self.conn.commit()
+
+    def get_structural_evaluation(self, sequence_hash: str) -> Optional[Tuple[Dict[str, Any], str]]:
+        """Retrieves cached structural assessment dictionary and PDB text for a sequence hash."""
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM structural_evaluations WHERE sequence_hash = ?;", (sequence_hash,))
+        row = cur.fetchone()
+        if not row:
+            return None
+
+        assessment_dict = {
+            "sequence_hash": row["sequence_hash"],
+            "variant_id": row["variant_id"],
+            "mean_plddt": row["mean_plddt"],
+            "plddt_per_residue": json.loads(row["plddt_per_residue_json"]),
+            "disordered_residues_count": row["disordered_count"],
+            "rmsd_to_reference": row["rmsd_to_reference"],
+            "clash_count": row["clash_count"],
+            "clashes": json.loads(row["clashes_json"]),
+            "contact_preservation_ratio": row["contact_preservation_ratio"],
+            "sasa_total": row["sasa_total"],
+            "sasa_hydrophobic": row["sasa_hydrophobic"],
+            "is_structurally_viable": bool(row["is_structurally_viable"]),
+            "violations": json.loads(row["violations_json"]),
+            "metadata": json.loads(row["metadata_json"]),
+        }
+        return assessment_dict, row["pdb_text"]
 
     def close(self) -> None:
         """Closes the underlying SQLite connection."""
