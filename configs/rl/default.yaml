@@ -1,0 +1,26 @@
+# EVANTHEA Reinforcement Learning Configuration
+ppo:
+  lr: 0.0003
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_eps: 0.2
+  value_coef: 0.5
+  entropy_coef: 0.01
+  max_grad_norm: 0.5
+  n_epochs: 4
+  batch_size: 32
+
+network:
+  hidden_dim: 128
+
+environment:
+  max_mutations: 5
+  allow_stop_action: true
+  allow_revisits: false
+
+reward_weights:
+  fitness_weight: 1.0
+  esm_plausibility_weight: 0.5
+  novelty_weight: 0.2
+  conservation_penalty: 0.05
+  violation_penalty: 5.0

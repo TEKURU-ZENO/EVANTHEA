@@ -1,0 +1,20 @@
+# EVANTHEA RL vs Evolutionary Search Benchmark Configuration
+# Strictly matched evaluation budget comparing PPO vs NSGA-II vs Genetic Algorithm
+
+evaluation_budget: 300
+target_protein: "GFP"
+seeds: [42, 101, 777]
+
+algorithms:
+  - name: "PPO Policy"
+    type: "rl_ppo"
+  - name: "Memory-Aware NSGA-II"
+    type: "nsga2_memory"
+  - name: "Single-Objective GA"
+    type: "genetic_algorithm"
+  - name: "Random Search"
+    type: "random_search"
+
+output:
+  report_json: "reports/phase6/rl_ablation_analysis.json"
+  summary_md: "reports/phase6/benchmark_summary.md"

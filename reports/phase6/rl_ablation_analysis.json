@@ -1,0 +1,204 @@
+{
+  "metadata": {
+    "target": "GFP_AEQVI",
+    "budget": 300,
+    "seeds": [
+      42,
+      101,
+      777
+    ],
+    "timestamp": "2026-11-05 12:13:11"
+  },
+  "individual_runs": [
+    {
+      "algorithm": "PPO Policy",
+      "seed": 42,
+      "evaluations_budget": 300,
+      "evaluations_used": 300,
+      "unique_sequences": 900,
+      "pareto_front_size": 6,
+      "final_hypervolume": 658.3021417617798,
+      "best_predicted_fitness": 9.300680160522461,
+      "runtime_seconds": 8.564968347549438
+    },
+    {
+      "algorithm": "Memory-Aware NSGA-II",
+      "seed": 42,
+      "evaluations_budget": 300,
+      "evaluations_used": 120,
+      "unique_sequences": 420,
+      "pareto_front_size": 3,
+      "final_hypervolume": 453.308789507548,
+      "best_predicted_fitness": 5.177910327911377,
+      "runtime_seconds": 4.469196796417236
+    },
+    {
+      "algorithm": "Single-Objective GA",
+      "seed": 42,
+      "evaluations_budget": 300,
+      "evaluations_used": 305,
+      "unique_sequences": 305,
+      "pareto_front_size": 3,
+      "final_hypervolume": 259.6373412265037,
+      "best_predicted_fitness": 5.143989562988281,
+      "runtime_seconds": 2.6632988452911377
+    },
+    {
+      "algorithm": "Random Search",
+      "seed": 42,
+      "evaluations_budget": 300,
+      "evaluations_used": 300,
+      "unique_sequences": 300,
+      "pareto_front_size": 3,
+      "final_hypervolume": 0.0,
+      "best_predicted_fitness": 5.143989562988281,
+      "runtime_seconds": 1.1693305969238281
+    },
+    {
+      "algorithm": "PPO Policy",
+      "seed": 101,
+      "evaluations_budget": 300,
+      "evaluations_used": 300,
+      "unique_sequences": 300,
+      "pareto_front_size": 6,
+      "final_hypervolume": 635.1593733342489,
+      "best_predicted_fitness": 9.408839225769043,
+      "runtime_seconds": 1.0253808498382568
+    },
+    {
+      "algorithm": "Memory-Aware NSGA-II",
+      "seed": 101,
+      "evaluations_budget": 300,
+      "evaluations_used": 300,
+      "unique_sequences": 300,
+      "pareto_front_size": 2,
+      "final_hypervolume": 453.61946412722267,
+      "best_predicted_fitness": 5.177910327911377,
+      "runtime_seconds": 3.6270339488983154
+    },
+    {
+      "algorithm": "Single-Objective GA",
+      "seed": 101,
+      "evaluations_budget": 300,
+      "evaluations_used": 305,
+      "unique_sequences": 305,
+      "pareto_front_size": 1,
+      "final_hypervolume": 328.79756051084723,
+      "best_predicted_fitness": 5.177910327911377,
+      "runtime_seconds": 3.1066298484802246
+    },
+    {
+      "algorithm": "Random Search",
+      "seed": 101,
+      "evaluations_budget": 300,
+      "evaluations_used": 300,
+      "unique_sequences": 300,
+      "pareto_front_size": 1,
+      "final_hypervolume": 0.0,
+      "best_predicted_fitness": 4.95442533493042,
+      "runtime_seconds": 1.0452935695648193
+    },
+    {
+      "algorithm": "PPO Policy",
+      "seed": 777,
+      "evaluations_budget": 300,
+      "evaluations_used": 300,
+      "unique_sequences": 300,
+      "pareto_front_size": 5,
+      "final_hypervolume": 645.1829372596741,
+      "best_predicted_fitness": 9.1532621383667,
+      "runtime_seconds": 1.1833040714263916
+    },
+    {
+      "algorithm": "Memory-Aware NSGA-II",
+      "seed": 777,
+      "evaluations_budget": 300,
+      "evaluations_used": 300,
+      "unique_sequences": 300,
+      "pareto_front_size": 3,
+      "final_hypervolume": 457.88945836385096,
+      "best_predicted_fitness": 5.253837585449219,
+      "runtime_seconds": 3.3922173976898193
+    },
+    {
+      "algorithm": "Single-Objective GA",
+      "seed": 777,
+      "evaluations_budget": 300,
+      "evaluations_used": 305,
+      "unique_sequences": 305,
+      "pareto_front_size": 1,
+      "final_hypervolume": 222.4126300661149,
+      "best_predicted_fitness": 5.253837585449219,
+      "runtime_seconds": 2.6302740573883057
+    },
+    {
+      "algorithm": "Random Search",
+      "seed": 777,
+      "evaluations_budget": 300,
+      "evaluations_used": 300,
+      "unique_sequences": 300,
+      "pareto_front_size": 2,
+      "final_hypervolume": 0.0,
+      "best_predicted_fitness": 5.148055553436279,
+      "runtime_seconds": 0.9384081363677979
+    }
+  ],
+  "summary_statistics": {
+    "PPO Policy": {
+      "evaluations_mean": 300.0,
+      "evaluations_std": 0.0,
+      "best_fitness_mean": 9.287593841552734,
+      "best_fitness_std": 0.12829010370796098,
+      "hypervolume_mean": 646.214817451901,
+      "hypervolume_std": 11.605839701241468,
+      "pareto_size_mean": 5.666666666666667,
+      "pareto_size_std": 0.5773502691896258,
+      "unique_seqs_mean": 500.0,
+      "unique_seqs_std": 346.41016151377545,
+      "runtime_mean": 3.5912177562713623,
+      "runtime_std": 4.308118051325712
+    },
+    "Memory-Aware NSGA-II": {
+      "evaluations_mean": 240.0,
+      "evaluations_std": 103.92304845413264,
+      "best_fitness_mean": 5.203219413757324,
+      "best_fitness_std": 0.043836622578303,
+      "hypervolume_mean": 454.9392373328739,
+      "hypervolume_std": 2.5596841169453164,
+      "pareto_size_mean": 2.6666666666666665,
+      "pareto_size_std": 0.5773502691896258,
+      "unique_seqs_mean": 340.0,
+      "unique_seqs_std": 69.2820323027551,
+      "runtime_mean": 3.8294827143351235,
+      "runtime_std": 0.5663128846238473
+    },
+    "Single-Objective GA": {
+      "evaluations_mean": 305.0,
+      "evaluations_std": 0.0,
+      "best_fitness_mean": 5.191912492116292,
+      "best_fitness_std": 0.05624671067236481,
+      "hypervolume_mean": 270.28251060115525,
+      "hypervolume_std": 53.98544322031541,
+      "pareto_size_mean": 1.6666666666666667,
+      "pareto_size_std": 1.1547005383792517,
+      "unique_seqs_mean": 305.0,
+      "unique_seqs_std": 0.0,
+      "runtime_mean": 2.800067583719889,
+      "runtime_std": 0.26600371385611554
+    },
+    "Random Search": {
+      "evaluations_mean": 300.0,
+      "evaluations_std": 0.0,
+      "best_fitness_mean": 5.082156817118327,
+      "best_fitness_std": 0.11063738846348682,
+      "hypervolume_mean": 0.0,
+      "hypervolume_std": 0.0,
+      "pareto_size_mean": 2.0,
+      "pareto_size_std": 1.0,
+      "unique_seqs_mean": 300.0,
+      "unique_seqs_std": 0.0,
+      "runtime_mean": 1.0510107676188152,
+      "runtime_std": 0.11556734167793381
+    }
+  }
+}

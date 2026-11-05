@@ -176,7 +176,11 @@ class EvolutionaryMemory:
         Returns:
             Mean distance to the k-nearest neighbors (higher values indicate greater novelty).
         """
-        results = self.query_similar(query, top_k=k_nearest, metric=metric)
+        try:
+            results = self.query_similar(query, top_k=k_nearest, metric=metric)
+        except ValueError:
+            return 0.0
+
         if not results:
             return 0.0
 
