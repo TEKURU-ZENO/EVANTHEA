@@ -1,9 +1,9 @@
 Model,Split,Hypothesis,Spearman,MAE,RMSE,R2
-MeanPredictor,position_held_out,Spatial (Position-Held-Out),N/A,1.0178,1.1791,-0.2231
-ZeroShotESM2Predictor,position_held_out,Spatial (Position-Held-Out),0.9066,1.2750,1.3854,-0.6885
-RidgeFitnessPredictor,position_held_out,Spatial (Position-Held-Out),0.9066,0.8363,0.9691,0.1737
-HistGradientBoostingPredictor,position_held_out,Spatial (Position-Held-Out),0.9064,0.3809,0.4460,0.8250
+MeanPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),N/A,0.6727,0.7836,-0.1087
+ZeroShotESM2Predictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.1696,3.6094,4.1738,-30.4539
+RidgeFitnessPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.3572,0.4557,0.6762,0.1744
+HistGradientBoostingPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.3125,0.4492,0.6778,0.1704
 MeanPredictor,mutation_order,Epistatic (Mutation-Order),N/A,1.1431,1.4656,-0.9208
-ZeroShotESM2Predictor,mutation_order,Epistatic (Mutation-Order),0.9036,1.2101,1.3243,-0.5683
-RidgeFitnessPredictor,mutation_order,Epistatic (Mutation-Order),0.9034,1.0380,1.3305,-0.5831
-HistGradientBoostingPredictor,mutation_order,Epistatic (Mutation-Order),0.8886,0.4471,0.5549,0.7246
+ZeroShotESM2Predictor,mutation_order,Epistatic (Mutation-Order),0.3321,4.1890,5.0819,-22.0957
+RidgeFitnessPredictor,mutation_order,Epistatic (Mutation-Order),0.3508,1.1125,1.4053,-0.7661
+HistGradientBoostingPredictor,mutation_order,Epistatic (Mutation-Order),0.2674,1.1181,1.4307,-0.8304

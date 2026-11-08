@@ -93,12 +93,26 @@ def create_position_held_out_split(
     test_position_fraction: float = 0.2,
     val_position_fraction: float = 0.1,
     seed: int = 42,
+    strict: bool = False,
 ) -> DatasetSplitManifest:
     """Partitions variants such that test residue positions are strictly never seen in training.
 
     Scientific Question:
         Can the model generalize to mutations involving residue positions absent from training?
         (Tests spatial / positional extrapolation across the protein structure).
+
+    Args:
+        dataset_id: Unique identifier of the dataset.
+        variants: List of all parsed VariantRecord objects.
+        sequence_length: Length L of the canonical sequence.
+        test_position_fraction: Fraction of positions reserved for test.
+        val_position_fraction: Fraction of positions reserved for validation.
+        seed: Random seed for deterministic position partitioning.
+        strict: If True, enforces strict multi-mutant disjointness where test variants must have
+            ALL their mutations exclusively in test positions, and train variants must have ALL
+            their mutations exclusively in train positions. Excludes cross-split mixed variants
+            to completely prevent near-duplicate leakage. If False, assigns a multi-mutant to test
+            if ANY of its mutations falls in test positions.
     """
     rng = random.Random(seed)
     all_positions = list(range(1, sequence_length + 1))
@@ -122,15 +136,25 @@ def create_position_held_out_split(
 
         var_positions = {m.position_1based for m in v.mutations}
 
-        # If any mutation is in the held-out test positions, assign to test
-        if var_positions.intersection(test_positions):
-            test_ids.append(v.variant_id)
-        # Else if any mutation is in validation positions, assign to val
-        elif var_positions.intersection(val_positions):
-            val_ids.append(v.variant_id)
-        # Else all mutations belong strictly to train positions
+        if strict:
+            # Strict mode: variant mutations must be an exact subset of the split partition
+            if var_positions.issubset(train_positions):
+                train_ids.append(v.variant_id)
+            elif var_positions.issubset(test_positions):
+                test_ids.append(v.variant_id)
+            elif var_positions.issubset(val_positions):
+                val_ids.append(v.variant_id)
+            # Mixed variants spanning across partitions are excluded to eliminate near-duplicate leakage
         else:
-            train_ids.append(v.variant_id)
+            # Standard mode: If any mutation is in the held-out test positions, assign to test
+            if var_positions.intersection(test_positions):
+                test_ids.append(v.variant_id)
+            # Else if any mutation is in validation positions, assign to val
+            elif var_positions.intersection(val_positions):
+                val_ids.append(v.variant_id)
+            # Else all mutations belong strictly to train positions
+            else:
+                train_ids.append(v.variant_id)
 
     verify_split_disjointness(train_ids, val_ids, test_ids)
 
@@ -143,9 +167,12 @@ def create_position_held_out_split(
             f"Position leakage: train set contains mutations at held-out test positions {sorted(test_held_out_overlap)}"
         )
 
+    test_used_positions = {m.position_1based for vid in test_ids for m in id_to_var[vid].mutations}
+    cross_position_overlap = len(train_used_positions.intersection(test_used_positions))
+
     return DatasetSplitManifest(
         dataset_id=dataset_id,
-        split_strategy="position_held_out",
+        split_strategy="strict_position_held_out" if strict else "position_held_out",
         scientific_question="Generalization to mutations involving residue positions absent from training.",
         seed=seed,
         train_variant_ids=train_ids,
@@ -159,6 +186,8 @@ def create_position_held_out_split(
             "held_out_val_positions_count": len(val_positions),
             "train_positions_count": len(train_positions),
             "positional_leakage_overlap": 0,
+            "bidirectional_position_overlap": cross_position_overlap,
+            "strict_isolation": strict,
         },
     )
 

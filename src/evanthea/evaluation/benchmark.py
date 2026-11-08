@@ -94,9 +94,13 @@ def run_split_benchmark(
     if "Median" in selected_models:
         model_instances.append(MedianPredictor())
     if "ZeroShot" in selected_models:
-        # ZeroShot uses score column from feature matrix (Config D/E) or raw scores
-        # Default index 1 is masked marginal score in mutation_features / hybrid
-        col_idx = 1 if feature_config in {FeatureConfig.MUTATION_FEATURES, FeatureConfig.HYBRID} else 0
+        # ZeroShot evaluates unsupervised evolutionary scores (e.g. PLM masked marginal or BLOSUM62)
+        if feature_config == FeatureConfig.MUTATION_FEATURES:
+            col_idx = 1
+        elif feature_config == FeatureConfig.HYBRID and wt_emb is not None:
+            col_idx = wt_emb.shape[0] + 1
+        else:
+            col_idx = 0
         model_instances.append(ZeroShotESM2Predictor(score_column_idx=col_idx, calibrate_sign_on_val=False))
     if "Ridge" in selected_models:
         model_instances.append(RidgeFitnessPredictor())

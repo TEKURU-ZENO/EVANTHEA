@@ -56,25 +56,32 @@ def run_full_benchmark(
     variants, summary = ingestor.ingest_csv(csv_path)
     logger.info(f"Ingested {summary.valid_records} valid variants.")
 
-    # Generate synthetic embeddings if cache is not populated (allows offline benchmarking on fixtures)
+    # Generate legitimate sequence representations from amino acid composition & BLOSUM62 substitutions
+    # (Unsupervised, completely decoupled from target labels to guarantee zero target leakage)
     cache = EmbeddingCache(cache_dir) if cache_dir and cache_dir.exists() else None
     cached_hashes = cache.get_all_sequence_hashes() if cache else set()
     mock_embeddings: Dict[str, np.ndarray] = {}
 
-    np.random.seed(42)
+    from evanthea.mutation.point_mutations import BLOSUM62_MATRIX
+    aa_list = sorted(list("ACDEFGHIKLMNPQRSTVWY"))
+    aa_to_idx = {aa: i for i, aa in enumerate(aa_list)}
+    aa_reps = {}
+    for aa in aa_list:
+        one_hot = np.zeros(20, dtype=np.float32)
+        one_hot[aa_to_idx[aa]] = 1.0
+        blosum_row = np.array([BLOSUM62_MATRIX.get((aa, aa2), -4.0) for aa2 in aa_list], dtype=np.float32)
+        aa_reps[aa] = np.concatenate([one_hot, blosum_row])  # 40 dims
+
     wt_hash = compute_sequence_hash(wt_seq)
-    wt_vec = np.zeros(mock_dim, dtype=np.float32)
+    wt_vec = np.mean([aa_reps.get(aa, np.zeros(40, dtype=np.float32)) for aa in wt_seq], axis=0)
     mock_embeddings[wt_hash] = wt_vec
 
     for v in variants:
         h = compute_sequence_hash(v.mutated_sequence)
         if h in cached_hashes:
             continue
-        # Biologically plausible mock embedding correlated with true score
-        vec = np.random.randn(mock_dim).astype(np.float32) * 0.1
-        if v.raw_score is not None:
-            vec[0] += (v.raw_score * 0.5)
-        mock_embeddings[h] = vec
+        v_emb = np.mean([aa_reps.get(aa, np.zeros(40, dtype=np.float32)) for aa in v.mutated_sequence], axis=0)
+        mock_embeddings[h] = v_emb
 
     # =========================================================================
     # EXPERIMENT 1: In-Distribution Interpolation (Random Split)
@@ -87,25 +94,25 @@ def run_full_benchmark(
         reference_protein=protein,
         all_variants=variants,
         split_manifest=random_split,
-        feature_config=FeatureConfig.EMB_DIFF,
+        feature_config=FeatureConfig.MUTATION_FEATURES,
         target_scaling="identity",
         provided_embeddings=mock_embeddings,
         models_to_run=models_to_test,
     )
 
     # =========================================================================
-    # EXPERIMENT 2: Spatial Generalization (Position-Held-Out Split)
+    # EXPERIMENT 2: Spatial Generalization (Strict Position-Held-Out Split)
     # =========================================================================
-    logger.info("Running EXP-2: Position-Held-Out Benchmark...")
+    logger.info("Running EXP-2: Strict Position-Held-Out Benchmark...")
     pos_split = create_position_held_out_split(
-        protein.id, variants, sequence_length=protein.length, test_position_fraction=0.3, seed=42
+        protein.id, variants, sequence_length=protein.length, test_position_fraction=0.3, seed=42, strict=True
     )
 
     exp2_results = run_split_benchmark(
         reference_protein=protein,
         all_variants=variants,
         split_manifest=pos_split,
-        feature_config=FeatureConfig.EMB_DIFF,
+        feature_config=FeatureConfig.MUTATION_FEATURES,
         target_scaling="identity",
         provided_embeddings=mock_embeddings,
         models_to_run=["Mean", "ZeroShot", "Ridge", "HistGBDT"],
@@ -121,7 +128,7 @@ def run_full_benchmark(
         reference_protein=protein,
         all_variants=variants,
         split_manifest=order_split,
-        feature_config=FeatureConfig.EMB_DIFF,
+        feature_config=FeatureConfig.MUTATION_FEATURES,
         target_scaling="identity",
         provided_embeddings=mock_embeddings,
         models_to_run=["Mean", "ZeroShot", "Ridge", "HistGBDT"],
@@ -181,7 +188,7 @@ def run_full_benchmark(
         writer = csv.writer(f)
         writer.writerow(["Model", "Split", "Hypothesis", "Spearman", "MAE", "RMSE", "R2"])
         for r in exp2_results + exp3_results:
-            hyp = "Spatial (Position-Held-Out)" if r.split_strategy == "position_held_out" else "Epistatic (Mutation-Order)"
+            hyp = "Spatial (Position-Held-Out)" if "position_held_out" in r.split_strategy else "Epistatic (Mutation-Order)"
             writer.writerow([
                 r.model_name,
                 r.split_strategy,
@@ -255,7 +262,7 @@ def run_full_benchmark(
 """
     for r in exp2_results + exp3_results:
         sp = f"{r.test_metrics.spearman:.4f}" if r.test_metrics.spearman is not None else "N/A"
-        hyp = "Spatial (Unseen Residues)" if r.split_strategy == "position_held_out" else "Epistatic (Higher-Order)"
+        hyp = "Spatial (Unseen Residues)" if "position_held_out" in r.split_strategy else "Epistatic (Higher-Order)"
         md_content += f"| **{r.model_name}** | `{r.split_strategy}` | {hyp} | {sp} | {r.test_metrics.mae:.4f} | {r.test_metrics.rmse:.4f} | {r.test_metrics.r2:.4f} |\n"
 
     md_content += """

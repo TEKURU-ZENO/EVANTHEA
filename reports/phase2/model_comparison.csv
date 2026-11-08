@@ -1,7 +1,7 @@
 Model,Split,FeatureConfig,Spearman,Pearson,MAE,RMSE,R2,Top10_Enrichment
-MeanPredictor,random,emb_diff,N/A,N/A,1.0181,1.0532,-0.0000,1.13
-MedianPredictor,random,emb_diff,N/A,N/A,0.9306,1.2305,-0.3651,1.13
-ZeroShotESM2Predictor,random,emb_diff,0.9022,0.9826,1.3367,1.4396,-0.8685,4.65
-RidgeFitnessPredictor,random,emb_diff,0.9022,0.9826,0.4853,0.5121,0.7635,4.63
-HistGradientBoostingPredictor,random,emb_diff,0.9021,0.9917,0.3737,0.4026,0.8539,4.63
-RandomForestFitnessPredictor,random,emb_diff,0.9022,0.9919,0.1030,0.1342,0.9838,4.61
+MeanPredictor,random,mutation_features,N/A,N/A,1.0181,1.0532,-0.0000,1.13
+MedianPredictor,random,mutation_features,N/A,N/A,0.9306,1.2305,-0.3651,1.13
+ZeroShotESM2Predictor,random,mutation_features,0.3478,0.3723,4.0937,4.8959,-20.6114,1.47
+RidgeFitnessPredictor,random,mutation_features,0.6183,0.6263,0.6760,0.8211,0.3921,2.80
+HistGradientBoostingPredictor,random,mutation_features,0.6201,0.6595,0.5980,0.7918,0.4348,2.54
+RandomForestFitnessPredictor,random,mutation_features,0.6126,0.6520,0.6069,0.7986,0.4249,2.58

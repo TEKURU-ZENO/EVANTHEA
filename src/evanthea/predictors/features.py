@@ -128,14 +128,16 @@ class FeatureMatrixBuilder:
         seq_hash = compute_sequence_hash(variant.mutated_sequence)
         meta = self.cache.get_metadata(seq_hash) if self.cache else None
 
-        # Masked marginal zero-shot score
+        # Masked marginal zero-shot score (or additive BLOSUM62 substitution baseline if offline)
         mm_score = 0.0
         pll = 0.0
-        if meta:
-            if meta.get("masked_marginal_score") is not None:
-                mm_score = float(meta["masked_marginal_score"])
+        if meta and meta.get("masked_marginal_score") is not None:
+            mm_score = float(meta["masked_marginal_score"])
             if meta.get("pseudo_perplexity") is not None:
                 pll = float(meta["pseudo_perplexity"])
+        elif variant.mutations:
+            from evanthea.mutation.point_mutations import BLOSUM62_MATRIX
+            mm_score = float(sum(BLOSUM62_MATRIX.get((m.ref_residue, m.mut_residue), -4.0) for m in variant.mutations))
 
         d_charge, d_hydro, d_vol = compute_biophysical_deltas(variant.mutations)
 

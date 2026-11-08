@@ -140,38 +140,48 @@ Unlike conceptual frameworks that rely on placeholder marketing claims, EVANTHEA
 
 The Phase 2 fitness prediction framework was evaluated on the complete experimental Deep Mutational Scanning (DMS) dataset for Green Fluorescent Protein from Sarkisyan et al. (*Nature* 2016), comprising **51,027 valid mutational variants**.
 
+### Rigorous Leakage Controls & Scientific Integrity
+To eliminate train/test leakage, the benchmark enforces two critical safeguards:
+1. **Target-Decoupled Sequence Representations**: Feature vectors are derived strictly from amino acid sequences and unsupervised substitution priors (BLOSUM62 / PLM log-odds), eliminating label leakage.
+2. **Strict Multi-Mutant Position Isolation**: While conventional position splits allow test multi-mutants to retain mutations at training positions (where up to 91.2% of test variants share partial residue mutations with train), EVANTHEA implements `strict_position_held_out`. In strict mode, test variants are partitioned such that **all** constituent mutations are exclusively at held-out positions, guaranteeing zero near-duplicate or positional overlap.
+
 ### 1. In-Distribution Model Comparison (Random 80/20 Split)
-Evaluated on **10,206 held-out test variants**:
+Evaluated on **10,206 held-out test variants** under `mutation_features` (Physicochemical deltas + evolutionary priors):
 
 | Model | Feature Representation | Spearman ($\rho$) | Pearson ($r$) | MAE | RMSE | $R^2$ | Top-10% Enrichment |
 |---|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| **MeanPredictor** | `emb_diff` | N/A | N/A | 1.0181 | 1.0532 | -0.0000 | 1.13x |
-| **MedianPredictor** | `emb_diff` | N/A | N/A | 0.9306 | 1.2305 | -0.3651 | 1.13x |
-| **ZeroShotESM2Predictor** | `emb_diff` | 0.9022 | 0.9826 | 1.3367 | 1.4396 | -0.8685 | 4.65x |
-| **RidgeFitnessPredictor** | `emb_diff` | 0.9022 | 0.9826 | 0.4853 | 0.5121 | 0.7635 | 4.63x |
-| **HistGradientBoostingPredictor** | `emb_diff` | 0.9021 | 0.9917 | 0.3737 | 0.4026 | 0.8539 | 4.63x |
-| **RandomForestFitnessPredictor** | `emb_diff` | **0.9022** | **0.9919** | **0.1030** | **0.1342** | **0.9838** | 4.61x |
+| **MeanPredictor** | `mutation_features` | N/A | N/A | 1.0181 | 1.0532 | -0.0000 | 1.13x |
+| **MedianPredictor** | `mutation_features` | N/A | N/A | 0.9306 | 1.2305 | -0.3651 | 1.13x |
+| **ZeroShotBaseline** | `mutation_features` (BLOSUM62) | 0.3478 | 0.3723 | 4.0937 | 4.8959 | -20.6114 | 1.47x |
+| **RidgeFitnessPredictor** | `mutation_features` | 0.6183 | 0.6263 | 0.6760 | 0.8211 | 0.3921 | **2.80x** |
+| **HistGradientBoostingPredictor** | `mutation_features` | **0.6201** | **0.6595** | **0.5980** | **0.7918** | **0.4348** | 2.54x |
+| **RandomForestFitnessPredictor** | `mutation_features` | 0.6126 | 0.6520 | 0.6069 | 0.7986 | 0.4249 | 2.58x |
+
+*(Note: Literature benchmarks for supervised models on GFP in ProteinGym typically land between $\rho = 0.60 - 0.70$. EVANTHEA's models achieve $\rho = 0.62 - 0.66$ without label contamination).*
 
 ### 2. Generalization Boundaries (Out-of-Distribution Splits)
 
 | Model | Split Regime | Scientific Hypothesis | Spearman ($\rho$) | MAE | RMSE | $R^2$ |
 |---|---|---|:---:|:---:|:---:|:---:|
-| **ZeroShotESM2** | `position_held_out` | Spatial (Unseen Residues) | 0.9066 | 1.2750 | 1.3854 | -0.6885 |
-| **RidgeRegression** | `position_held_out` | Spatial (Unseen Residues) | 0.9066 | 0.8363 | 0.9691 | 0.1737 |
-| **HistGradientBoosting** | `position_held_out` | Spatial (Unseen Residues) | **0.9064** | **0.3809** | **0.4460** | **0.8250** |
-| **ZeroShotESM2** | `mutation_order` | Epistatic (Higher-Order) | 0.9036 | 1.2101 | 1.3243 | -0.5683 |
-| **RidgeRegression** | `mutation_order` | Epistatic (Higher-Order) | 0.9034 | 1.0380 | 1.3305 | -0.5831 |
-| **HistGradientBoosting** | `mutation_order` | Epistatic (Higher-Order) | **0.8886** | **0.4471** | **0.5549** | **0.7246** |
+| **ZeroShotBaseline** | `strict_position_held_out` | Spatial (Strict Position-Held-Out) | 0.1696 | 3.6094 | 4.1738 | -30.4539 |
+| **RidgeRegression** | `strict_position_held_out` | Spatial (Strict Position-Held-Out) | **0.3572** | **0.4557** | **0.6762** | **0.1744** |
+| **HistGradientBoosting** | `strict_position_held_out` | Spatial (Strict Position-Held-Out) | 0.3125 | 0.4492 | 0.6778 | 0.1704 |
+| **ZeroShotBaseline** | `mutation_order` | Epistatic (Higher-Order) | 0.3321 | 4.1890 | 5.0819 | -22.0957 |
+| **RidgeRegression** | `mutation_order` | Epistatic (Higher-Order) | **0.3508** | **1.1125** | **1.4053** | -0.7661 |
+| **HistGradientBoosting** | `mutation_order` | Epistatic (Higher-Order) | 0.2674 | 1.1181 | 1.4307 | -0.8304 |
 
-### 3. Feature Representation Ablation
+### 3. Feature Representation Ablation (Ridge vs HistGBDT)
 
 | Model | Representation | Spearman ($\rho$) | Pearson ($r$) | MAE | RMSE | $R^2$ |
 |---|---|:---:|:---:|:---:|:---:|:---:|
-| **RidgeRegression** | `seq_emb` (640-d) | 0.9022 | 0.9826 | 0.4853 | 0.5121 | 0.7635 |
-| **RidgeRegression** | `emb_diff` ($\Delta \mathbf{h}$) | 0.9022 | 0.9826 | 0.4853 | 0.5121 | 0.7635 |
-| **RidgeRegression** | `emb_concat` (1280-d) | 0.9021 | 0.9826 | 0.3292 | 0.3633 | 0.8810 |
-| **RidgeRegression** | `mutation_features` | 0.5689 | 0.5858 | 0.7115 | 0.8537 | 0.3430 |
-| **HistGBDT** | `hybrid` ($\Delta \mathbf{h}$ + PhysChem) | **0.9046** | **0.9918** | **0.1038** | **0.1344** | **0.9837** |
+| **RidgeRegression** | `seq_emb` (Sequence Rep) | 0.4358 | 0.4759 | 0.8079 | 0.9263 | 0.2263 |
+| **HistGBDT** | `seq_emb` (Sequence Rep) | 0.6149 | 0.6554 | 0.6180 | 0.7955 | 0.4294 |
+| **RidgeRegression** | `emb_diff` ($\Delta \mathbf{h}$) | 0.4358 | 0.4758 | 0.8080 | 0.9263 | 0.2263 |
+| **HistGBDT** | `emb_diff` ($\Delta \mathbf{h}$) | 0.6149 | 0.6554 | 0.6180 | 0.7955 | 0.4294 |
+| **RidgeRegression** | `mutation_features` | 0.6183 | 0.6263 | 0.6760 | 0.8211 | 0.3921 |
+| **HistGBDT** | `mutation_features` | 0.6201 | 0.6595 | 0.5980 | 0.7918 | 0.4348 |
+| **RidgeRegression** | `hybrid` ($\Delta \mathbf{h}$ + PhysChem) | 0.6409 | 0.6471 | 0.6563 | 0.8031 | 0.4185 |
+| **HistGBDT** | `hybrid` ($\Delta \mathbf{h}$ + PhysChem) | **0.6554** | **0.7006** | **0.5529** | **0.7516** | **0.4907** |
 
 *All raw artifacts and summary tables are available in [`reports/phase2/`](reports/phase2/).*
 
