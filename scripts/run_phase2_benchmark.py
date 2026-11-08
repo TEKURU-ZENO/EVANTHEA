@@ -58,6 +58,7 @@ def run_full_benchmark(
 
     # Generate synthetic embeddings if cache is not populated (allows offline benchmarking on fixtures)
     cache = EmbeddingCache(cache_dir) if cache_dir and cache_dir.exists() else None
+    cached_hashes = cache.get_all_sequence_hashes() if cache else set()
     mock_embeddings: Dict[str, np.ndarray] = {}
 
     np.random.seed(42)
@@ -67,7 +68,7 @@ def run_full_benchmark(
 
     for v in variants:
         h = compute_sequence_hash(v.mutated_sequence)
-        if cache and cache.has_sequence(h):
+        if h in cached_hashes:
             continue
         # Biologically plausible mock embedding correlated with true score
         vec = np.random.randn(mock_dim).astype(np.float32) * 0.1
@@ -291,7 +292,10 @@ def run_full_benchmark(
 
 def main():
     parser = argparse.ArgumentParser(description="Run Phase 2 full benchmark.")
-    parser.add_argument("--csv", type=Path, default=Path("tests/fixtures/sample_gfp_dms.csv"))
+    default_csv = Path("data/raw/proteingym/GFP_AEQVI_Sarkisyan_2016.csv")
+    if not default_csv.exists():
+        default_csv = Path("tests/fixtures/sample_gfp_dms.csv")
+    parser.add_argument("--csv", type=Path, default=default_csv, help="Path to input DMS CSV")
     parser.add_argument("--reports_dir", type=Path, default=Path("reports/phase2"))
     parser.add_argument("--cache_dir", type=Path, default=Path("data/interim/audit_cache"))
     args = parser.parse_args()

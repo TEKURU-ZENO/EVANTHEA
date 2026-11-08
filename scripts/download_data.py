@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger("evanthea.download")
 
 PROTEINGYM_GFP_URL = (
-    "https://raw.githubusercontent.com/OATML-Markslab/ProteinGym/main/benchmarks/DMS_zero_shot/substitutions/GFP_AEQVI_Sarkisyan_2016.csv"
+    "https://huggingface.co/datasets/ICML2022/ProteinGym/resolve/main/ProteinGym_substitutions/GFP_AEQVI_Sarkisyan_2016.csv"
 )
 UNIPROT_GFP_FASTA_URL = "https://rest.uniprot.org/uniprotkb/P42212.fasta"
 

@@ -52,6 +52,13 @@ class EmbeddingCache:
             cursor.execute("SELECT 1 FROM sequence_cache WHERE seq_hash = ? LIMIT 1;", (seq_hash,))
             return cursor.fetchone() is not None
 
+    def get_all_sequence_hashes(self) -> set:
+        """Retrieves set of all cached sequence hashes in a single query."""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT seq_hash FROM sequence_cache;")
+            return {row[0] for row in cursor.fetchall()}
+
     def get_metadata(self, seq_hash: str) -> Optional[Dict[str, Any]]:
         """Retrieves cached metadata for a sequence hash."""
         with sqlite3.connect(self.db_path) as conn:
