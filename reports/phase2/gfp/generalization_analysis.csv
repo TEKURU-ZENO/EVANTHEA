@@ -1,0 +1,9 @@
+Model,Split,Hypothesis,Spearman,MAE,RMSE,R2
+MeanPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),N/A,0.7398,0.8171,-0.1994
+ZeroShotESM2Predictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.1530,3.4497,3.9589,-27.1537
+RidgeFitnessPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.3330,0.4447,0.6924,0.1388
+HistGradientBoostingPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.2848,0.5507,0.7092,0.0965
+MeanPredictor,mutation_order,Epistatic (Mutation-Order),N/A,1.1431,1.4656,-0.9208
+ZeroShotESM2Predictor,mutation_order,Epistatic (Mutation-Order),0.3321,4.1890,5.0819,-22.0957
+RidgeFitnessPredictor,mutation_order,Epistatic (Mutation-Order),0.3508,1.1125,1.4053,-0.7661
+HistGradientBoostingPredictor,mutation_order,Epistatic (Mutation-Order),0.2674,1.1181,1.4307,-0.8304

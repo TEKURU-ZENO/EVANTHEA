@@ -1,0 +1,5 @@
+Model,Split,Hypothesis,Spearman,MAE,RMSE,R2
+MeanPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),N/A,0.3882,0.4320,-0.0196
+ZeroShotESM2Predictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.3835,2.0022,2.3106,-28.1728
+RidgeFitnessPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.4506,0.3317,0.3916,0.1621
+HistGradientBoostingPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.4242,0.3261,0.3998,0.1267

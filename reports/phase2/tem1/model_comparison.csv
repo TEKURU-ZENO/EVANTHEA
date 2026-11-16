@@ -1,0 +1,7 @@
+Model,Split,FeatureConfig,Spearman,Pearson,MAE,RMSE,R2,Top10_Enrichment
+MeanPredictor,random,mutation_features,N/A,N/A,0.3968,0.4363,-0.0092,0.62
+MedianPredictor,random,mutation_features,N/A,N/A,0.3872,0.4358,-0.0068,0.62
+ZeroShotESM2Predictor,random,mutation_features,0.3350,0.3503,1.9959,2.3098,-27.2817,2.08
+RidgeFitnessPredictor,random,mutation_features,0.4728,0.4608,0.3388,0.3886,0.1995,2.29
+HistGradientBoostingPredictor,random,mutation_features,0.4834,0.4854,0.3286,0.3826,0.2239,2.49
+RandomForestFitnessPredictor,random,mutation_features,0.4654,0.4702,0.3307,0.3858,0.2108,2.70

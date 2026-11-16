@@ -1,19 +1,44 @@
-"""Acquires benchmark datasets (ProteinGym GFP, UniProt reference, FireProtDB) with checksum verification."""
+"""Acquires benchmark datasets (ProteinGym GFP, TEM-1 Beta-lactamase, BRCA1, UniProt references) with checksum verification."""
 
 import hashlib
 import json
 import logging
 import urllib.request
 from pathlib import Path
-from typing import Optional
+from typing import Dict, Optional
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("evanthea.download")
 
-PROTEINGYM_GFP_URL = (
-    "https://huggingface.co/datasets/ICML2022/ProteinGym/resolve/main/ProteinGym_substitutions/GFP_AEQVI_Sarkisyan_2016.csv"
+# ProteinGym Hugging Face Base
+PROTEINGYM_HF_BASE = (
+    "https://huggingface.co/datasets/ICML2022/ProteinGym/resolve/main/ProteinGym_substitutions"
 )
-UNIPROT_GFP_FASTA_URL = "https://rest.uniprot.org/uniprotkb/P42212.fasta"
+
+# Registry of supported ProteinGym benchmark DMS datasets
+DATASET_REGISTRY: Dict[str, Dict[str, str]] = {
+    "gfp": {
+        "name": "Green Fluorescent Protein (Sarkisyan et al. 2016)",
+        "csv_filename": "GFP_AEQVI_Sarkisyan_2016.csv",
+        "csv_url": f"{PROTEINGYM_HF_BASE}/GFP_AEQVI_Sarkisyan_2016.csv",
+        "uniprot_accession": "P42212",
+        "fasta_url": "https://rest.uniprot.org/uniprotkb/P42212.fasta",
+    },
+    "tem1": {
+        "name": "Beta-lactamase TEM-1 (Firnberg et al. 2014)",
+        "csv_filename": "BLAT_ECOLX_Firnberg_2014.csv",
+        "csv_url": f"{PROTEINGYM_HF_BASE}/BLAT_ECOLX_Firnberg_2014.csv",
+        "uniprot_accession": "P62593",
+        "fasta_url": "https://rest.uniprot.org/uniprotkb/P62593.fasta",
+    },
+    "brca1": {
+        "name": "BRCA1 Tumor Suppressor (Findlay et al. 2018)",
+        "csv_filename": "BRCA1_HUMAN_Findlay_2018.csv",
+        "csv_url": f"{PROTEINGYM_HF_BASE}/BRCA1_HUMAN_Findlay_2018.csv",
+        "uniprot_accession": "P38398",
+        "fasta_url": "https://rest.uniprot.org/uniprotkb/P38398.fasta",
+    },
+}
 
 
 def download_file(url: str, dest_path: Path, expected_sha256: Optional[str] = None) -> Path:
@@ -37,19 +62,19 @@ def main():
     root = Path(__file__).resolve().parent.parent
     raw_dir = root / "data" / "raw"
 
-    # 1. ProteinGym GFP
-    gfp_csv_path = raw_dir / "proteingym" / "GFP_AEQVI_Sarkisyan_2016.csv"
-    try:
-        download_file(PROTEINGYM_GFP_URL, gfp_csv_path)
-    except Exception as e:
-        logger.warning(f"Could not download ProteinGym GFP directly: {e}")
+    for key, info in DATASET_REGISTRY.items():
+        logger.info(f"Checking dataset: {info['name']} ({key})...")
+        csv_path = raw_dir / "proteingym" / info["csv_filename"]
+        try:
+            download_file(info["csv_url"], csv_path)
+        except Exception as e:
+            logger.warning(f"Could not download {info['csv_filename']}: {e}")
 
-    # 2. UniProt GFP Wild-type FASTA
-    gfp_fasta_path = raw_dir / "uniprot" / "P42212.fasta"
-    try:
-        download_file(UNIPROT_GFP_FASTA_URL, gfp_fasta_path)
-    except Exception as e:
-        logger.warning(f"Could not download UniProt FASTA: {e}")
+        fasta_path = raw_dir / "uniprot" / f"{info['uniprot_accession']}.fasta"
+        try:
+            download_file(info["fasta_url"], fasta_path)
+        except Exception as e:
+            logger.warning(f"Could not download FASTA for {info['uniprot_accession']}: {e}")
 
 
 if __name__ == "__main__":

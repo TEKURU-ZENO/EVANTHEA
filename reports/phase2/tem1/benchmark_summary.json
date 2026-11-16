@@ -1,0 +1,650 @@
+{
+  "timestamp": "2026-11-16T17:12:01.145448+00:00",
+  "phase": "Phase 2 - Fitness Prediction",
+  "dataset": "BLAT_ECOLX_Firnberg_2014",
+  "protein_name": "Beta-lactamase TEM-1",
+  "n_variants": 4783,
+  "experiments": {
+    "exp1_random_split": [
+      {
+        "model_name": "MeanPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": null,
+          "spearman_ci": null,
+          "pearson": null,
+          "pearson_ci": null,
+          "mae": 0.3967767249192973,
+          "rmse": 0.43632331699286614,
+          "r2": -0.009225380039611819,
+          "top_k_enrichment": 0.6236979166666666,
+          "n_samples": 479
+        },
+        "val_score": null,
+        "hyperparameters": {
+          "name": "MeanPredictor",
+          "mean_value": 0.5169136696288552,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "MedianPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": null,
+          "spearman_ci": null,
+          "pearson": null,
+          "pearson_ci": null,
+          "mae": 0.3872176405730477,
+          "rmse": 0.4357931280849717,
+          "r2": -0.006774193106944715,
+          "top_k_enrichment": 0.6236979166666666,
+          "n_samples": 479
+        },
+        "val_score": null,
+        "hyperparameters": {
+          "name": "MedianPredictor",
+          "median_value": 0.43945,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "ZeroShotESM2Predictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.3349758333534351,
+          "spearman_ci": [
+            0.25396900108939924,
+            0.4026136483967367
+          ],
+          "pearson": 0.3503424395647524,
+          "pearson_ci": [
+            0.27743093519767426,
+            0.42041921595352
+          ],
+          "mae": 1.9959354906054279,
+          "rmse": 2.309762283898732,
+          "r2": -27.281724685921823,
+          "top_k_enrichment": 2.0789930555555554,
+          "n_samples": 479
+        },
+        "val_score": null,
+        "hyperparameters": {
+          "name": "ZeroShotESM2Predictor",
+          "score_column_idx": 1,
+          "calibrate_sign_on_val": false,
+          "sign_multiplier": 1.0,
+          "val_spearman": null,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "RidgeFitnessPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.47284806515061095,
+          "spearman_ci": [
+            0.41463080248915823,
+            0.5339261990741168
+          ],
+          "pearson": 0.46079253582691304,
+          "pearson_ci": [
+            0.4071074934503551,
+            0.5208383643715189
+          ],
+          "mae": 0.33884298719862066,
+          "rmse": 0.38859905839290454,
+          "r2": 0.19947516980629365,
+          "top_k_enrichment": 2.2868923611111107,
+          "n_samples": 479
+        },
+        "val_score": 0.36941309583354925,
+        "hyperparameters": {
+          "name": "RidgeFitnessPredictor",
+          "best_alpha": 1000.0,
+          "val_score": 0.36941309583354925,
+          "coef_norm": 0.09619471430778503,
+          "intercept": 0.6482976675033569,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "HistGradientBoostingPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.48341063069299534,
+          "spearman_ci": [
+            0.4260637302406291,
+            0.5447712969689001
+          ],
+          "pearson": 0.48544058496367326,
+          "pearson_ci": [
+            0.436026154289784,
+            0.5479214889929702
+          ],
+          "mae": 0.3286146726416148,
+          "rmse": 0.38262013025079034,
+          "r2": 0.22391918133221522,
+          "top_k_enrichment": 2.4947916666666665,
+          "n_samples": 479
+        },
+        "val_score": 0.38722110026845374,
+        "hyperparameters": {
+          "name": "HistGradientBoostingPredictor",
+          "best_params": {
+            "lr": 0.05,
+            "max_iter": 100,
+            "max_depth": 4
+          },
+          "val_score": 0.38722110026845374,
+          "random_state": 42,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "RandomForestFitnessPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.46540599468495186,
+          "spearman_ci": [
+            0.40914390530485373,
+            0.5289192047668838
+          ],
+          "pearson": 0.4702479693094603,
+          "pearson_ci": [
+            0.41790910959373495,
+            0.5301624512280655
+          ],
+          "mae": 0.3306870519133599,
+          "rmse": 0.3858485262437347,
+          "r2": 0.21076740914406678,
+          "top_k_enrichment": 2.702690972222222,
+          "n_samples": 479
+        },
+        "val_score": null,
+        "hyperparameters": {
+          "name": "RandomForestFitnessPredictor",
+          "n_estimators": 50,
+          "max_depth": 6,
+          "min_samples_leaf": 2,
+          "random_state": 42,
+          "is_fitted": true
+        }
+      }
+    ],
+    "exp2_position_held_out": [
+      {
+        "model_name": "MeanPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "strict_position_held_out",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": null,
+          "spearman_ci": null,
+          "pearson": null,
+          "pearson_ci": null,
+          "mae": 0.38815903194815077,
+          "rmse": 0.43196708309259707,
+          "r2": -0.01956745578116137,
+          "top_k_enrichment": 1.2698053417836124,
+          "n_samples": 935
+        },
+        "val_score": null,
+        "hyperparameters": {
+          "name": "MeanPredictor",
+          "mean_value": 0.5318460440214159,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "ZeroShotESM2Predictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "strict_position_held_out",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.3835471811791917,
+          "spearman_ci": [
+            0.33746887263474235,
+            0.43584827137923066
+          ],
+          "pearson": 0.38418380161950266,
+          "pearson_ci": [
+            0.3354330400818743,
+            0.4346404965715256
+          ],
+          "mae": 2.002166524064171,
+          "rmse": 2.310637352412454,
+          "r2": -28.172808159377194,
+          "top_k_enrichment": 2.2221593481213215,
+          "n_samples": 935
+        },
+        "val_score": null,
+        "hyperparameters": {
+          "name": "ZeroShotESM2Predictor",
+          "score_column_idx": 1,
+          "calibrate_sign_on_val": false,
+          "sign_multiplier": 1.0,
+          "val_spearman": null,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "RidgeFitnessPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "strict_position_held_out",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.4505930155295514,
+          "spearman_ci": [
+            0.4078767864139907,
+            0.48941111918796654
+          ],
+          "pearson": 0.41787597755270434,
+          "pearson_ci": [
+            0.3689024422976522,
+            0.46020823569920444
+          ],
+          "mae": 0.3317022730407103,
+          "rmse": 0.39160214434680435,
+          "r2": 0.16207571129823473,
+          "top_k_enrichment": 2.1163422363060205,
+          "n_samples": 935
+        },
+        "val_score": 0.36391382756202345,
+        "hyperparameters": {
+          "name": "RidgeFitnessPredictor",
+          "best_alpha": 0.0001,
+          "val_score": 0.36391382756202345,
+          "coef_norm": 0.10779308527708054,
+          "intercept": 0.6713343262672424,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "HistGradientBoostingPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "strict_position_held_out",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.4242110949923061,
+          "spearman_ci": [
+            0.3768245334579061,
+            0.46684618129245836
+          ],
+          "pearson": 0.39967008359740097,
+          "pearson_ci": [
+            0.3508613427758959,
+            0.4414230645632684
+          ],
+          "mae": 0.3260698560870777,
+          "rmse": 0.3997867328581232,
+          "r2": 0.1266840092902729,
+          "top_k_enrichment": 2.0105251244907194,
+          "n_samples": 935
+        },
+        "val_score": 0.46243909632879737,
+        "hyperparameters": {
+          "name": "HistGradientBoostingPredictor",
+          "best_params": {
+            "lr": 0.1,
+            "max_iter": 100,
+            "max_depth": 6
+          },
+          "val_score": 0.46243909632879737,
+          "random_state": 42,
+          "is_fitted": true
+        }
+      }
+    ],
+    "exp3_mutation_order": [],
+    "exp4_feature_ablation": [
+      {
+        "model_name": "RidgeFitnessPredictor",
+        "feature_config": "seq_emb",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.3445950983435327,
+          "spearman_ci": [
+            0.2733207778441953,
+            0.42464636552870844
+          ],
+          "pearson": 0.32699300582815327,
+          "pearson_ci": [
+            0.2602968656325981,
+            0.4022969199944659
+          ],
+          "mae": 0.3718308913873979,
+          "rmse": 0.4151663729245034,
+          "r2": 0.0862746813987304,
+          "top_k_enrichment": 1.6631944444444442,
+          "n_samples": 479
+        },
+        "val_score": 0.279655487832,
+        "hyperparameters": {
+          "name": "RidgeFitnessPredictor",
+          "best_alpha": 0.31622776601683794,
+          "val_score": 0.279655487832,
+          "coef_norm": 5.022261619567871,
+          "intercept": -2.840442419052124,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "HistGradientBoostingPredictor",
+        "feature_config": "seq_emb",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.4887266806970531,
+          "spearman_ci": [
+            0.4227675207619482,
+            0.5561355674673797
+          ],
+          "pearson": 0.4934468859639404,
+          "pearson_ci": [
+            0.43632602569906953,
+            0.557014813788848
+          ],
+          "mae": 0.32981510768105937,
+          "rmse": 0.38221956918897937,
+          "r2": 0.22554327274868835,
+          "top_k_enrichment": 2.2868923611111107,
+          "n_samples": 479
+        },
+        "val_score": 0.417677221178742,
+        "hyperparameters": {
+          "name": "HistGradientBoostingPredictor",
+          "best_params": {
+            "lr": 0.05,
+            "max_iter": 50,
+            "max_depth": 4
+          },
+          "val_score": 0.417677221178742,
+          "random_state": 42,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "RidgeFitnessPredictor",
+        "feature_config": "emb_diff",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.3446310896044909,
+          "spearman_ci": [
+            0.27329927733343284,
+            0.42470026423407137
+          ],
+          "pearson": 0.3269933783724518,
+          "pearson_ci": [
+            0.26029724910800206,
+            0.4022972200775367
+          ],
+          "mae": 0.37183197870553164,
+          "rmse": 0.4151670727185448,
+          "r2": 0.08627160109110421,
+          "top_k_enrichment": 1.6631944444444442,
+          "n_samples": 479
+        },
+        "val_score": 0.2797098059533917,
+        "hyperparameters": {
+          "name": "RidgeFitnessPredictor",
+          "best_alpha": 0.31622776601683794,
+          "val_score": 0.2797098059533917,
+          "coef_norm": 5.022261619567871,
+          "intercept": 0.5221060514450073,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "HistGradientBoostingPredictor",
+        "feature_config": "emb_diff",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.4887266806970531,
+          "spearman_ci": [
+            0.4227675207619482,
+            0.5561355674673797
+          ],
+          "pearson": 0.4934468859639404,
+          "pearson_ci": [
+            0.43632602569906953,
+            0.557014813788848
+          ],
+          "mae": 0.32981510768105937,
+          "rmse": 0.38221956918897937,
+          "r2": 0.22554327274868835,
+          "top_k_enrichment": 2.2868923611111107,
+          "n_samples": 479
+        },
+        "val_score": 0.417677221178742,
+        "hyperparameters": {
+          "name": "HistGradientBoostingPredictor",
+          "best_params": {
+            "lr": 0.05,
+            "max_iter": 50,
+            "max_depth": 4
+          },
+          "val_score": 0.417677221178742,
+          "random_state": 42,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "RidgeFitnessPredictor",
+        "feature_config": "emb_concat",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.34640355680020135,
+          "spearman_ci": [
+            0.27758178943245476,
+            0.4238548733865085
+          ],
+          "pearson": 0.3306030724426038,
+          "pearson_ci": [
+            0.26263895077108024,
+            0.4078844321383388
+          ],
+          "mae": 0.3695193456992227,
+          "rmse": 0.4137952918845765,
+          "r2": 0.09229984566354565,
+          "top_k_enrichment": 1.6631944444444442,
+          "n_samples": 479
+        },
+        "val_score": 0.27926492581572154,
+        "hyperparameters": {
+          "name": "RidgeFitnessPredictor",
+          "best_alpha": 0.31622776601683794,
+          "val_score": 0.27926492581572154,
+          "coef_norm": 4.421295166015625,
+          "intercept": -1.321313500404358,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "HistGradientBoostingPredictor",
+        "feature_config": "emb_concat",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.4887266806970531,
+          "spearman_ci": [
+            0.4227675207619482,
+            0.5561355674673797
+          ],
+          "pearson": 0.4934468859639404,
+          "pearson_ci": [
+            0.43632602569906953,
+            0.557014813788848
+          ],
+          "mae": 0.32981510768105937,
+          "rmse": 0.38221956918897937,
+          "r2": 0.22554327274868835,
+          "top_k_enrichment": 2.2868923611111107,
+          "n_samples": 479
+        },
+        "val_score": 0.417677221178742,
+        "hyperparameters": {
+          "name": "HistGradientBoostingPredictor",
+          "best_params": {
+            "lr": 0.05,
+            "max_iter": 50,
+            "max_depth": 4
+          },
+          "val_score": 0.417677221178742,
+          "random_state": 42,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "RidgeFitnessPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.47284806515061095,
+          "spearman_ci": [
+            0.41463080248915823,
+            0.5339261990741168
+          ],
+          "pearson": 0.46079253582691304,
+          "pearson_ci": [
+            0.4071074934503551,
+            0.5208383643715189
+          ],
+          "mae": 0.33884298719862066,
+          "rmse": 0.38859905839290454,
+          "r2": 0.19947516980629365,
+          "top_k_enrichment": 2.2868923611111107,
+          "n_samples": 479
+        },
+        "val_score": 0.36941309583354925,
+        "hyperparameters": {
+          "name": "RidgeFitnessPredictor",
+          "best_alpha": 1000.0,
+          "val_score": 0.36941309583354925,
+          "coef_norm": 0.09619471430778503,
+          "intercept": 0.6482976675033569,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "HistGradientBoostingPredictor",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.48341063069299534,
+          "spearman_ci": [
+            0.4260637302406291,
+            0.5447712969689001
+          ],
+          "pearson": 0.48544058496367326,
+          "pearson_ci": [
+            0.436026154289784,
+            0.5479214889929702
+          ],
+          "mae": 0.3286146726416148,
+          "rmse": 0.38262013025079034,
+          "r2": 0.22391918133221522,
+          "top_k_enrichment": 2.4947916666666665,
+          "n_samples": 479
+        },
+        "val_score": 0.38722110026845374,
+        "hyperparameters": {
+          "name": "HistGradientBoostingPredictor",
+          "best_params": {
+            "lr": 0.05,
+            "max_iter": 100,
+            "max_depth": 4
+          },
+          "val_score": 0.38722110026845374,
+          "random_state": 42,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "RidgeFitnessPredictor",
+        "feature_config": "hybrid",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.5036509541512951,
+          "spearman_ci": [
+            0.4422767275347681,
+            0.5704239743740568
+          ],
+          "pearson": 0.48765529072625446,
+          "pearson_ci": [
+            0.4356884515332672,
+            0.549759663203445
+          ],
+          "mae": 0.32644715198763724,
+          "rmse": 0.3813369800770995,
+          "r2": 0.22911576332042238,
+          "top_k_enrichment": 2.2868923611111107,
+          "n_samples": 479
+        },
+        "val_score": 0.40757495129460625,
+        "hyperparameters": {
+          "name": "RidgeFitnessPredictor",
+          "best_alpha": 0.01,
+          "val_score": 0.40757495129460625,
+          "coef_norm": 14.28843879699707,
+          "intercept": 0.6629878282546997,
+          "is_fitted": true
+        }
+      },
+      {
+        "model_name": "HistGradientBoostingPredictor",
+        "feature_config": "hybrid",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.5043311723221555,
+          "spearman_ci": [
+            0.44426906494829715,
+            0.5722819687766925
+          ],
+          "pearson": 0.5155640824250052,
+          "pearson_ci": [
+            0.46453405164323586,
+            0.583275711022654
+          ],
+          "mae": 0.323427221169203,
+          "rmse": 0.3766382067449857,
+          "r2": 0.24799614646354007,
+          "top_k_enrichment": 2.702690972222222,
+          "n_samples": 479
+        },
+        "val_score": 0.4197722099046106,
+        "hyperparameters": {
+          "name": "HistGradientBoostingPredictor",
+          "best_params": {
+            "lr": 0.05,
+            "max_iter": 50,
+            "max_depth": 4
+          },
+          "val_score": 0.4197722099046106,
+          "random_state": 42,
+          "is_fitted": true
+        }
+      }
+    ]
+  }
+}

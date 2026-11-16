@@ -9,12 +9,19 @@ from evanthea.data.schemas import ProteinRecord
 from evanthea.protein.sequence import validate_amino_acid_string
 
 SAMPLE_CSV = Path(__file__).resolve().parent.parent / "fixtures" / "sample_gfp_dms.csv"
+SAMPLE_TEM1_CSV = Path(__file__).resolve().parent.parent / "fixtures" / "sample_tem1_dms.csv"
 SAMPLE_FIREPROT = Path(__file__).resolve().parent.parent / "fixtures" / "sample_fireprotdb.tsv"
 
 GFP_WT = (
     "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFSYGVQCFSRYPDHMKQ"
     "HDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNG"
     "IKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK"
+)
+
+TEM1_WT = (
+    "MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRVDAGQEQLGRRIHYS"
+    "QNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPAAMATTLRKLL"
+    "TGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW"
 )
 
 
@@ -63,3 +70,31 @@ def test_fireprotdb_ingestor():
     assert var.metadata["ddG_kcal_mol"] == -0.45
     assert var.metadata["dTm_celsius"] == 1.2
     assert var.metadata["pH"] == "7.4"
+
+
+def test_proteingym_ingestor_tem1():
+    """Validates TEM-1 Beta-lactamase DMS assay ingestion against canonical P62593 reference."""
+    protein = ProteinRecord(
+        id="BLAT_ECOLX_Firnberg_2014",
+        name="Beta-lactamase TEM-1",
+        wildtype_sequence=TEM1_WT,
+        length=len(TEM1_WT),
+        organism="Escherichia coli",
+        uniprot_accession="P62593",
+    )
+    ingestor = ProteinGymIngestor(protein=protein)
+    variants, summary = ingestor.ingest_csv(SAMPLE_TEM1_CSV)
+
+    assert summary.total_records == 10
+    assert summary.valid_records == 10
+    assert summary.invalid_records == 0
+    assert summary.single_mutants == 10
+    assert summary.multi_mutants == 0
+
+    # Ensure all variants mutated at position 24 (H24) and have valid scores
+    for v in variants:
+        assert v.num_mutations == 1
+        assert v.mutations[0].position_1based == 24
+        assert v.mutations[0].ref_residue == "H"
+        assert v.raw_score is not None
+        assert v.normalized_score is not None
