@@ -1,5 +1,6 @@
 Model,Split,Hypothesis,Spearman,MAE,RMSE,R2
 MeanPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),N/A,0.3882,0.4320,-0.0196
-ZeroShotESM2Predictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.3835,2.0022,2.3106,-28.1728
-RidgeFitnessPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.4506,0.3317,0.3916,0.1621
-HistGradientBoostingPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.4242,0.3261,0.3998,0.1267
+ZeroShotESM2Predictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.6476,8.2063,8.7048,-413.0326
+RidgeFitnessPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.6690,0.2785,0.3358,0.3837
+HistGradientBoostingPredictor,strict_position_held_out,Spatial (Strict Position-Held-Out),0.6687,0.2514,0.3417,0.3621
+PLMFineTune,strict_position_held_out,Spatial (Strict Position-Held-Out),0.6490,0.3134,0.4061,0.0987

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-16T17:12:01.145448+00:00",
+  "timestamp": "2026-11-24T09:19:23.426611+00:00",
   "phase": "Phase 2 - Fitness Prediction",
   "dataset": "BLAT_ECOLX_Firnberg_2014",
   "protein_name": "Beta-lactamase TEM-1",
@@ -58,20 +58,20 @@
         "split_strategy": "random",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.3349758333534351,
+          "spearman": 0.6375835590707706,
           "spearman_ci": [
-            0.25396900108939924,
-            0.4026136483967367
+            0.5857537111760311,
+            0.6912216038560246
           ],
-          "pearson": 0.3503424395647524,
+          "pearson": 0.6093751191001452,
           "pearson_ci": [
-            0.27743093519767426,
-            0.42041921595352
+            0.5559868692170897,
+            0.6631257687790063
           ],
-          "mae": 1.9959354906054279,
-          "rmse": 2.309762283898732,
-          "r2": -27.281724685921823,
-          "top_k_enrichment": 2.0789930555555554,
+          "mae": 8.144398058544867,
+          "rmse": 8.602407703041498,
+          "r2": -391.29372616916845,
+          "top_k_enrichment": 3.950086805555555,
           "n_samples": 479
         },
         "val_score": null,
@@ -90,29 +90,29 @@
         "split_strategy": "random",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.47284806515061095,
+          "spearman": 0.6744843978949295,
           "spearman_ci": [
-            0.41463080248915823,
-            0.5339261990741168
+            0.6214666282842585,
+            0.7205246449586362
           ],
-          "pearson": 0.46079253582691304,
+          "pearson": 0.6440782088784466,
           "pearson_ci": [
-            0.4071074934503551,
-            0.5208383643715189
+            0.5935971848377913,
+            0.690083735526615
           ],
-          "mae": 0.33884298719862066,
-          "rmse": 0.38859905839290454,
-          "r2": 0.19947516980629365,
-          "top_k_enrichment": 2.2868923611111107,
+          "mae": 0.2691429000518018,
+          "rmse": 0.33259219664377315,
+          "r2": 0.4135980170221156,
+          "top_k_enrichment": 3.950086805555555,
           "n_samples": 479
         },
-        "val_score": 0.36941309583354925,
+        "val_score": 0.6658803902309937,
         "hyperparameters": {
           "name": "RidgeFitnessPredictor",
           "best_alpha": 1000.0,
-          "val_score": 0.36941309583354925,
-          "coef_norm": 0.09619471430778503,
-          "intercept": 0.6482976675033569,
+          "val_score": 0.6658803902309937,
+          "coef_norm": 0.08678602427244186,
+          "intercept": 1.1455597877502441,
           "is_fitted": true
         }
       },
@@ -122,31 +122,31 @@
         "split_strategy": "random",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.48341063069299534,
+          "spearman": 0.7216455651802728,
           "spearman_ci": [
-            0.4260637302406291,
-            0.5447712969689001
+            0.6829647185849614,
+            0.7612126134785556
           ],
-          "pearson": 0.48544058496367326,
+          "pearson": 0.7029505522374818,
           "pearson_ci": [
-            0.436026154289784,
-            0.5479214889929702
+            0.6597538723400577,
+            0.7499397137615099
           ],
-          "mae": 0.3286146726416148,
-          "rmse": 0.38262013025079034,
-          "r2": 0.22391918133221522,
-          "top_k_enrichment": 2.4947916666666665,
+          "mae": 0.2356735006925578,
+          "rmse": 0.3095517699175182,
+          "r2": 0.4920301893787581,
+          "top_k_enrichment": 3.7421874999999996,
           "n_samples": 479
         },
-        "val_score": 0.38722110026845374,
+        "val_score": 0.6908707690030923,
         "hyperparameters": {
           "name": "HistGradientBoostingPredictor",
           "best_params": {
             "lr": 0.05,
             "max_iter": 100,
-            "max_depth": 4
+            "max_depth": 6
           },
-          "val_score": 0.38722110026845374,
+          "val_score": 0.6908707690030923,
           "random_state": 42,
           "is_fitted": true
         }
@@ -157,20 +157,20 @@
         "split_strategy": "random",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.46540599468495186,
+          "spearman": 0.7129862726086339,
           "spearman_ci": [
-            0.40914390530485373,
-            0.5289192047668838
+            0.6732094070375306,
+            0.7560387714185269
           ],
-          "pearson": 0.4702479693094603,
+          "pearson": 0.6911837861686131,
           "pearson_ci": [
-            0.41790910959373495,
-            0.5301624512280655
+            0.650975964109131,
+            0.7321811563791908
           ],
-          "mae": 0.3306870519133599,
-          "rmse": 0.3858485262437347,
-          "r2": 0.21076740914406678,
-          "top_k_enrichment": 2.702690972222222,
+          "mae": 0.24192511077827478,
+          "rmse": 0.31428072260231077,
+          "r2": 0.4763913586345717,
+          "top_k_enrichment": 4.573784722222221,
           "n_samples": 479
         },
         "val_score": null,
@@ -181,6 +181,47 @@
           "min_samples_leaf": 2,
           "random_state": 42,
           "is_fitted": true
+        }
+      },
+      {
+        "model_name": "PLMFineTune",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.6716831439383377,
+          "spearman_ci": [
+            0.6203148499023584,
+            0.7192915944100146
+          ],
+          "pearson": 0.6594201881855261,
+          "pearson_ci": [
+            0.6127385740433169,
+            0.7043775175928124
+          ],
+          "mae": 0.2871505737881695,
+          "rmse": 0.3794438977440015,
+          "r2": 0.23675061157822452,
+          "top_k_enrichment": 3.3263888888888884,
+          "n_samples": 479
+        },
+        "val_score": 0.6545695954294101,
+        "hyperparameters": {
+          "name": "PLMFineTune",
+          "mode": "deep_head",
+          "checkpoint": "facebook/esm2_t30_150M_UR50D",
+          "hidden_dim": 256,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "rank_loss_weight": 1.0,
+          "batch_size": 64,
+          "max_epochs": 20,
+          "lora_rank": 8,
+          "lora_alpha": 16.0,
+          "device": "cpu",
+          "val_score": 0.6545695954294101,
+          "epochs_trained": 15,
+          "final_train_loss": 0.644075665433528
         }
       }
     ],
@@ -214,20 +255,20 @@
         "split_strategy": "strict_position_held_out",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.3835471811791917,
+          "spearman": 0.6476345003671923,
           "spearman_ci": [
-            0.33746887263474235,
-            0.43584827137923066
+            0.6164102343513387,
+            0.6849971593872797
           ],
-          "pearson": 0.38418380161950266,
+          "pearson": 0.6126676681928184,
           "pearson_ci": [
-            0.3354330400818743,
-            0.4346404965715256
+            0.5789578953858245,
+            0.6512275924343441
           ],
-          "mae": 2.002166524064171,
-          "rmse": 2.310637352412454,
-          "r2": -28.172808159377194,
-          "top_k_enrichment": 2.2221593481213215,
+          "mae": 8.206254569322718,
+          "rmse": 8.704823089235642,
+          "r2": -413.03261669696946,
+          "top_k_enrichment": 3.280330466274332,
           "n_samples": 935
         },
         "val_score": null,
@@ -246,29 +287,29 @@
         "split_strategy": "strict_position_held_out",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.4505930155295514,
+          "spearman": 0.6689740073131648,
           "spearman_ci": [
-            0.4078767864139907,
-            0.48941111918796654
+            0.6352062839578566,
+            0.7028069775104933
           ],
-          "pearson": 0.41787597755270434,
+          "pearson": 0.6311244048551512,
           "pearson_ci": [
-            0.3689024422976522,
-            0.46020823569920444
+            0.5957214556106954,
+            0.6676929233040838
           ],
-          "mae": 0.3317022730407103,
-          "rmse": 0.39160214434680435,
-          "r2": 0.16207571129823473,
-          "top_k_enrichment": 2.1163422363060205,
+          "mae": 0.2784943213895298,
+          "rmse": 0.3358339342577357,
+          "r2": 0.3837402388691282,
+          "top_k_enrichment": 3.280330466274332,
           "n_samples": 935
         },
-        "val_score": 0.36391382756202345,
+        "val_score": 0.5781786640032137,
         "hyperparameters": {
           "name": "RidgeFitnessPredictor",
-          "best_alpha": 0.0001,
-          "val_score": 0.36391382756202345,
-          "coef_norm": 0.10779308527708054,
-          "intercept": 0.6713343262672424,
+          "best_alpha": 10000.0,
+          "val_score": 0.5781786640032137,
+          "coef_norm": 0.06986071169376373,
+          "intercept": 1.0316370725631714,
           "is_fitted": true
         }
       },
@@ -278,23 +319,23 @@
         "split_strategy": "strict_position_held_out",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.4242110949923061,
+          "spearman": 0.6687105829931057,
           "spearman_ci": [
-            0.3768245334579061,
-            0.46684618129245836
+            0.6318050932903565,
+            0.7023009486252236
           ],
-          "pearson": 0.39967008359740097,
+          "pearson": 0.6210413053869887,
           "pearson_ci": [
-            0.3508613427758959,
-            0.4414230645632684
+            0.5771497273069238,
+            0.6578875353095449
           ],
-          "mae": 0.3260698560870777,
-          "rmse": 0.3997867328581232,
-          "r2": 0.1266840092902729,
-          "top_k_enrichment": 2.0105251244907194,
+          "mae": 0.2513672185674667,
+          "rmse": 0.3416864581582435,
+          "r2": 0.3620741647657113,
+          "top_k_enrichment": 3.386147578089633,
           "n_samples": 935
         },
-        "val_score": 0.46243909632879737,
+        "val_score": 0.6606366025679733,
         "hyperparameters": {
           "name": "HistGradientBoostingPredictor",
           "best_params": {
@@ -302,9 +343,50 @@
             "max_iter": 100,
             "max_depth": 6
           },
-          "val_score": 0.46243909632879737,
+          "val_score": 0.6606366025679733,
           "random_state": 42,
           "is_fitted": true
+        }
+      },
+      {
+        "model_name": "PLMFineTune",
+        "feature_config": "mutation_features",
+        "split_strategy": "strict_position_held_out",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.6490456605881905,
+          "spearman_ci": [
+            0.6138487742747457,
+            0.6837417562320205
+          ],
+          "pearson": 0.6009165140963506,
+          "pearson_ci": [
+            0.5569134091878273,
+            0.6430498284822526
+          ],
+          "mae": 0.31344993248442593,
+          "rmse": 0.4061345705011538,
+          "r2": 0.09873070815372642,
+          "top_k_enrichment": 2.751244907197827,
+          "n_samples": 935
+        },
+        "val_score": 0.6075976773042928,
+        "hyperparameters": {
+          "name": "PLMFineTune",
+          "mode": "deep_head",
+          "checkpoint": "facebook/esm2_t30_150M_UR50D",
+          "hidden_dim": 256,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "rank_loss_weight": 1.0,
+          "batch_size": 64,
+          "max_epochs": 20,
+          "lora_rank": 8,
+          "lora_alpha": 16.0,
+          "device": "cpu",
+          "val_score": 0.6075976773042928,
+          "epochs_trained": 14,
+          "final_train_loss": 0.6456145025216616
         }
       }
     ],
@@ -378,6 +460,47 @@
         }
       },
       {
+        "model_name": "PLMFineTune",
+        "feature_config": "seq_emb",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.30344385052446027,
+          "spearman_ci": [
+            0.23152131902221462,
+            0.3899880234457348
+          ],
+          "pearson": 0.2906412155475204,
+          "pearson_ci": [
+            0.22002077606980464,
+            0.37461823462808513
+          ],
+          "mae": 0.39576405320376595,
+          "rmse": 0.43562841922536466,
+          "r2": -0.006013312396931925,
+          "top_k_enrichment": 1.4552951388888886,
+          "n_samples": 479
+        },
+        "val_score": 0.26384293395140934,
+        "hyperparameters": {
+          "name": "PLMFineTune",
+          "mode": "deep_head",
+          "checkpoint": "facebook/esm2_t30_150M_UR50D",
+          "hidden_dim": 256,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "rank_loss_weight": 1.0,
+          "batch_size": 64,
+          "max_epochs": 20,
+          "lora_rank": 8,
+          "lora_alpha": 16.0,
+          "device": "cpu",
+          "val_score": 0.26384293395140934,
+          "epochs_trained": 5,
+          "final_train_loss": 0.7958766232102604
+        }
+      },
+      {
         "model_name": "RidgeFitnessPredictor",
         "feature_config": "emb_diff",
         "split_strategy": "random",
@@ -442,6 +565,47 @@
           "val_score": 0.417677221178742,
           "random_state": 42,
           "is_fitted": true
+        }
+      },
+      {
+        "model_name": "PLMFineTune",
+        "feature_config": "emb_diff",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.47980942777304403,
+          "spearman_ci": [
+            0.4160604436843424,
+            0.5443366625306347
+          ],
+          "pearson": 0.4686961257327307,
+          "pearson_ci": [
+            0.4102014023029789,
+            0.5378092741002815
+          ],
+          "mae": 0.32459022310852753,
+          "rmse": 0.41632623975608374,
+          "r2": 0.08116212815870072,
+          "top_k_enrichment": 2.0789930555555554,
+          "n_samples": 479
+        },
+        "val_score": 0.4020971745160086,
+        "hyperparameters": {
+          "name": "PLMFineTune",
+          "mode": "deep_head",
+          "checkpoint": "facebook/esm2_t30_150M_UR50D",
+          "hidden_dim": 256,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "rank_loss_weight": 1.0,
+          "batch_size": 64,
+          "max_epochs": 20,
+          "lora_rank": 8,
+          "lora_alpha": 16.0,
+          "device": "cpu",
+          "val_score": 0.4020971745160086,
+          "epochs_trained": 20,
+          "final_train_loss": 0.7126277745780298
         }
       },
       {
@@ -512,34 +676,75 @@
         }
       },
       {
+        "model_name": "PLMFineTune",
+        "feature_config": "emb_concat",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.4725424899633628,
+          "spearman_ci": [
+            0.39927545213710725,
+            0.5393726214781805
+          ],
+          "pearson": 0.4417483536756237,
+          "pearson_ci": [
+            0.38246392524179895,
+            0.5073023085191452
+          ],
+          "mae": 0.3384609149733578,
+          "rmse": 0.4102839311880237,
+          "r2": 0.10763950545107959,
+          "top_k_enrichment": 2.0789930555555554,
+          "n_samples": 479
+        },
+        "val_score": 0.35645600205797523,
+        "hyperparameters": {
+          "name": "PLMFineTune",
+          "mode": "deep_head",
+          "checkpoint": "facebook/esm2_t30_150M_UR50D",
+          "hidden_dim": 256,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "rank_loss_weight": 1.0,
+          "batch_size": 64,
+          "max_epochs": 20,
+          "lora_rank": 8,
+          "lora_alpha": 16.0,
+          "device": "cpu",
+          "val_score": 0.35645600205797523,
+          "epochs_trained": 20,
+          "final_train_loss": 0.7392876673552949
+        }
+      },
+      {
         "model_name": "RidgeFitnessPredictor",
         "feature_config": "mutation_features",
         "split_strategy": "random",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.47284806515061095,
+          "spearman": 0.6744843978949295,
           "spearman_ci": [
-            0.41463080248915823,
-            0.5339261990741168
+            0.6214666282842585,
+            0.7205246449586362
           ],
-          "pearson": 0.46079253582691304,
+          "pearson": 0.6440782088784466,
           "pearson_ci": [
-            0.4071074934503551,
-            0.5208383643715189
+            0.5935971848377913,
+            0.690083735526615
           ],
-          "mae": 0.33884298719862066,
-          "rmse": 0.38859905839290454,
-          "r2": 0.19947516980629365,
-          "top_k_enrichment": 2.2868923611111107,
+          "mae": 0.2691429000518018,
+          "rmse": 0.33259219664377315,
+          "r2": 0.4135980170221156,
+          "top_k_enrichment": 3.950086805555555,
           "n_samples": 479
         },
-        "val_score": 0.36941309583354925,
+        "val_score": 0.6658803902309937,
         "hyperparameters": {
           "name": "RidgeFitnessPredictor",
           "best_alpha": 1000.0,
-          "val_score": 0.36941309583354925,
-          "coef_norm": 0.09619471430778503,
-          "intercept": 0.6482976675033569,
+          "val_score": 0.6658803902309937,
+          "coef_norm": 0.08678602427244186,
+          "intercept": 1.1455597877502441,
           "is_fitted": true
         }
       },
@@ -549,33 +754,74 @@
         "split_strategy": "random",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.48341063069299534,
+          "spearman": 0.7216455651802728,
           "spearman_ci": [
-            0.4260637302406291,
-            0.5447712969689001
+            0.6829647185849614,
+            0.7612126134785556
           ],
-          "pearson": 0.48544058496367326,
+          "pearson": 0.7029505522374818,
           "pearson_ci": [
-            0.436026154289784,
-            0.5479214889929702
+            0.6597538723400577,
+            0.7499397137615099
           ],
-          "mae": 0.3286146726416148,
-          "rmse": 0.38262013025079034,
-          "r2": 0.22391918133221522,
-          "top_k_enrichment": 2.4947916666666665,
+          "mae": 0.2356735006925578,
+          "rmse": 0.3095517699175182,
+          "r2": 0.4920301893787581,
+          "top_k_enrichment": 3.7421874999999996,
           "n_samples": 479
         },
-        "val_score": 0.38722110026845374,
+        "val_score": 0.6908707690030923,
         "hyperparameters": {
           "name": "HistGradientBoostingPredictor",
           "best_params": {
             "lr": 0.05,
             "max_iter": 100,
-            "max_depth": 4
+            "max_depth": 6
           },
-          "val_score": 0.38722110026845374,
+          "val_score": 0.6908707690030923,
           "random_state": 42,
           "is_fitted": true
+        }
+      },
+      {
+        "model_name": "PLMFineTune",
+        "feature_config": "mutation_features",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.6716831439383377,
+          "spearman_ci": [
+            0.6203148499023584,
+            0.7192915944100146
+          ],
+          "pearson": 0.6594201881855261,
+          "pearson_ci": [
+            0.6127385740433169,
+            0.7043775175928124
+          ],
+          "mae": 0.2871505737881695,
+          "rmse": 0.3794438977440015,
+          "r2": 0.23675061157822452,
+          "top_k_enrichment": 3.3263888888888884,
+          "n_samples": 479
+        },
+        "val_score": 0.6545695954294101,
+        "hyperparameters": {
+          "name": "PLMFineTune",
+          "mode": "deep_head",
+          "checkpoint": "facebook/esm2_t30_150M_UR50D",
+          "hidden_dim": 256,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "rank_loss_weight": 1.0,
+          "batch_size": 64,
+          "max_epochs": 20,
+          "lora_rank": 8,
+          "lora_alpha": 16.0,
+          "device": "cpu",
+          "val_score": 0.6545695954294101,
+          "epochs_trained": 15,
+          "final_train_loss": 0.644075665433528
         }
       },
       {
@@ -584,29 +830,29 @@
         "split_strategy": "random",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.5036509541512951,
+          "spearman": 0.7067398471109393,
           "spearman_ci": [
-            0.4422767275347681,
-            0.5704239743740568
+            0.6641889107145185,
+            0.7530563876412003
           ],
-          "pearson": 0.48765529072625446,
+          "pearson": 0.6678029468176614,
           "pearson_ci": [
-            0.4356884515332672,
-            0.549759663203445
+            0.6256677619917619,
+            0.7095039627728162
           ],
-          "mae": 0.32644715198763724,
-          "rmse": 0.3813369800770995,
-          "r2": 0.22911576332042238,
-          "top_k_enrichment": 2.2868923611111107,
+          "mae": 0.26189313482491605,
+          "rmse": 0.324168019111395,
+          "r2": 0.4429275850604958,
+          "top_k_enrichment": 3.950086805555555,
           "n_samples": 479
         },
-        "val_score": 0.40757495129460625,
+        "val_score": 0.6826705285665373,
         "hyperparameters": {
           "name": "RidgeFitnessPredictor",
-          "best_alpha": 0.01,
-          "val_score": 0.40757495129460625,
-          "coef_norm": 14.28843879699707,
-          "intercept": 0.6629878282546997,
+          "best_alpha": 0.00031622776601683794,
+          "val_score": 0.6826705285665373,
+          "coef_norm": 16.771484375,
+          "intercept": 1.1746031045913696,
           "is_fitted": true
         }
       },
@@ -616,33 +862,74 @@
         "split_strategy": "random",
         "target_scaling": "identity",
         "test_metrics": {
-          "spearman": 0.5043311723221555,
+          "spearman": 0.7490046501497449,
           "spearman_ci": [
-            0.44426906494829715,
-            0.5722819687766925
+            0.7084822132211825,
+            0.7861019065449522
           ],
-          "pearson": 0.5155640824250052,
+          "pearson": 0.7313385612866314,
           "pearson_ci": [
-            0.46453405164323586,
-            0.583275711022654
+            0.692548287249962,
+            0.7724617894047558
           ],
-          "mae": 0.323427221169203,
-          "rmse": 0.3766382067449857,
-          "r2": 0.24799614646354007,
-          "top_k_enrichment": 2.702690972222222,
+          "mae": 0.22497503652196182,
+          "rmse": 0.2974770191288304,
+          "r2": 0.5308862514160178,
+          "top_k_enrichment": 3.7421874999999996,
           "n_samples": 479
         },
-        "val_score": 0.4197722099046106,
+        "val_score": 0.7232055951462245,
         "hyperparameters": {
           "name": "HistGradientBoostingPredictor",
           "best_params": {
-            "lr": 0.05,
+            "lr": 0.1,
             "max_iter": 50,
             "max_depth": 4
           },
-          "val_score": 0.4197722099046106,
+          "val_score": 0.7232055951462245,
           "random_state": 42,
           "is_fitted": true
+        }
+      },
+      {
+        "model_name": "PLMFineTune",
+        "feature_config": "hybrid",
+        "split_strategy": "random",
+        "target_scaling": "identity",
+        "test_metrics": {
+          "spearman": 0.6852395992375152,
+          "spearman_ci": [
+            0.6315875611965458,
+            0.7307707704183374
+          ],
+          "pearson": 0.6676377475839381,
+          "pearson_ci": [
+            0.6228651140145455,
+            0.7124501857542013
+          ],
+          "mae": 0.2646295459216348,
+          "rmse": 0.3461374393167758,
+          "r2": 0.36486145139695936,
+          "top_k_enrichment": 3.7421874999999996,
+          "n_samples": 479
+        },
+        "val_score": 0.6569764981929891,
+        "hyperparameters": {
+          "name": "PLMFineTune",
+          "mode": "deep_head",
+          "checkpoint": "facebook/esm2_t30_150M_UR50D",
+          "hidden_dim": 256,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "rank_loss_weight": 1.0,
+          "batch_size": 64,
+          "max_epochs": 20,
+          "lora_rank": 8,
+          "lora_alpha": 16.0,
+          "device": "cpu",
+          "val_score": 0.6569764981929891,
+          "epochs_trained": 12,
+          "final_train_loss": 0.6394632862786115
         }
       }
     ]

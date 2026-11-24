@@ -6,7 +6,7 @@ An Adaptive, Closed-Loop Framework for Protein Sequence Optimization Using Prote
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3119/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5+-ee4c2c.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests: 168 Passed](https://img.shields.io/badge/Tests-168%20Passed-brightgreen.svg)](tests/)
+[![Tests: 175 Passed](https://img.shields.io/badge/Tests-175%20Passed-brightgreen.svg)](tests/)
 
 ---
 
@@ -77,7 +77,7 @@ EVANTHEA formulates protein sequence design as a verifiable, closed-loop evoluti
 
 ## Core Modules & Implementation Reality
 
-Unlike conceptual frameworks that rely on placeholder marketing claims, EVANTHEA's codebase is fully implemented, strictly verified across 168 unit and integration tests, and benchmarked on real experimental datasets:
+Unlike conceptual frameworks that rely on placeholder marketing claims, EVANTHEA's codebase is fully implemented, strictly verified across 175 unit and integration tests, and benchmarked on real experimental datasets:
 
 ### 1. Data Ingestion & Sequence Intelligence (Phase 1)
 - **Rigid Amino Acid Validation**: Strict checks for canonical 20 amino acids, case normalization, and coordinate conversion (0-indexed internal representations vs 1-indexed biological coordinates).
@@ -87,14 +87,20 @@ Unlike conceptual frameworks that rely on placeholder marketing claims, EVANTHEA
 - **Leakage-Resistant Splits**: In-distribution random split, spatial position-held-out split (testing generalization to unseen residues), and mutation-order split (testing epistatic generalization from low- to high-order mutants).
 - **Persistent Caching**: SQLite variant registry with batch hash indexing and disk caching.
 
-### 2. Surrogate Fitness Landscape Modeling (Phase 2)
+### 2. Surrogate Fitness Landscape Modeling & PLM Fine-Tuning (Phase 2)
 - **Multi-Representation Feature Extraction**:
   - `seq_emb`: Full 640-dim mean-pooled sequence representation.
   - `emb_diff`: Delta vector $\Delta \mathbf{h} = \mathbf{h}_{\text{variant}} - \mathbf{h}_{\text{wt}}$ isolating local perturbation.
   - `emb_concat`: $[\mathbf{h}_{\text{variant}} \,\|\, \mathbf{h}_{\text{wt}}]$ (1280 dims).
   - `mutation_features`: Physico-chemical deltas (charge, hydrophobicity, molecular weight, isoelectric point) + one-hot positional encoding.
-  - `hybrid`: Concatenation of $\Delta \mathbf{h}$ with explicit physico-chemical deltas.
-- **Surrogate Algorithms**: Ridge Regression with closed-form L2 regularization, Histogram-based Gradient Boosted Trees (`HistGradientBoostingRegressor`), Random Forest, and Zero-Shot PLM baselines.
+  - `hybrid`: Concatenation of $\mathbf{h}_{\text{ESM2}}$ embeddings with explicit physico-chemical deltas and zero-shot log-odds.
+- **Deep Attentive PLM Surrogate (`PLMFineTuningPredictor`)**:
+  - Zero-dependency parameter-efficient fine-tuning (PEFT) with native PyTorch **Low-Rank Adaptation (LoRA)**: $W = W_0 + \frac{\alpha}{r} BA$.
+  - Multi-scale attentive residual projection head with LayerNorm, GELU, and residual skip connections.
+  - **Composite Rank Loss (`CompositeRankLoss`)**: Combines Huber regression with smooth pairwise ranking loss ($\mathcal{L} = \mathcal{L}_{\text{Huber}} + \lambda_{\text{rank}} \mathcal{L}_{\text{rank}}$) to directly optimize Spearman rank correlation.
+- **Authentic Zero-Shot PLM Scoring (`TrueZeroShotESM2Predictor`)**:
+  - Evaluates authentic ESM-2 150M wildtype-marginal / masked-marginal log-odds $\log P(x_i = v \mid \mathbf{x}) - \log P(x_i = w \mid \mathbf{x})$, achieving published ProteinGym literature numbers ($\rho \approx 0.52$ on GFP, $\rho \approx 0.64$ on TEM-1) with zero label training.
+- **Surrogate Algorithms**: Ridge Regression with closed-form L2 regularization, Histogram-based Gradient Boosted Trees (`HistGradientBoostingRegressor`), Random Forest, Deep PLM Fine-Tuning, and Zero-Shot PLM baselines.
 - **Leakage-Safe Scaling**: `TargetTransformer` fitted strictly on training folds to prevent target leakage.
 
 ### 3. Smart Mutation Proposal Engine (Phase 3)

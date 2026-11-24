@@ -7,9 +7,15 @@ from pydantic import BaseModel, Field
 from evanthea.data.schemas import DatasetSplitManifest, ProteinRecord, VariantRecord
 from evanthea.evaluation.metrics import MetricBundle, evaluate_predictions
 from evanthea.predictors.base import FitnessPredictor
-from evanthea.predictors.baselines import MeanPredictor, MedianPredictor, ZeroShotESM2Predictor
+from evanthea.predictors.baselines import (
+    MeanPredictor,
+    MedianPredictor,
+    TrueZeroShotESM2Predictor,
+    ZeroShotESM2Predictor,
+)
 from evanthea.predictors.features import FeatureConfig, FeatureMatrixBuilder, FeatureScaler
 from evanthea.predictors.gradient_boosting import HistGradientBoostingPredictor
+from evanthea.predictors.plm_finetune import PLMFineTuningPredictor
 from evanthea.predictors.random_forest import RandomForestFitnessPredictor
 from evanthea.predictors.ridge import RidgeFitnessPredictor
 from evanthea.predictors.targets import TargetTransformer
@@ -108,6 +114,10 @@ def run_split_benchmark(
         model_instances.append(HistGradientBoostingPredictor())
     if "RandomForest" in selected_models:
         model_instances.append(RandomForestFitnessPredictor(n_estimators=50, max_depth=6))
+    if "PLMFineTune" in selected_models:
+        model_instances.append(PLMFineTuningPredictor(hidden_dim=256, max_epochs=20, early_stopping_patience=4))
+    if "TrueZeroShot" in selected_models:
+        model_instances.append(TrueZeroShotESM2Predictor())
 
     # 4. Evaluation Loop
     results: List[ModelBenchmarkResult] = []

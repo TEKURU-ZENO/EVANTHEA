@@ -124,3 +124,59 @@ class ZeroShotESM2Predictor(FitnessPredictor):
             "val_spearman": self.val_spearman_,
             "is_fitted": self.is_fitted,
         }
+
+
+class TrueZeroShotESM2Predictor(FitnessPredictor):
+    """Authentic ProteinGym zero-shot baseline computing ESM-2 masked/wildtype marginal log-odds.
+
+    Unlike BLOSUM62 fallback surrogates, this predictor directly scores variants using
+    unsupervised pre-trained protein language model log-likelihood ratios:
+        ΔLLR = Σ [log p(x_mut | context) - log p(x_wt | context)]
+    """
+
+    def __init__(
+        self,
+        name: str = "TrueZeroShotESM2",
+        precomputed_scores: Optional[np.ndarray] = None,
+        calibrate_sign_on_val: bool = False,
+    ):
+        super().__init__(name=name)
+        self.precomputed_scores = precomputed_scores
+        self.calibrate_sign_on_val = calibrate_sign_on_val
+        self.sign_multiplier_: float = 1.0
+        self.val_spearman_: Optional[float] = None
+
+    def fit(
+        self,
+        X_train: np.ndarray,
+        y_train: np.ndarray,
+        X_val: Optional[np.ndarray] = None,
+        y_val: Optional[np.ndarray] = None,
+    ) -> "TrueZeroShotESM2Predictor":
+        if self.calibrate_sign_on_val and X_val is not None and y_val is not None and len(X_val) > 0:
+            val_scores = X_val[:, 0]
+            corr, _ = spearmanr(val_scores, y_val)
+            self.val_spearman_ = float(corr) if not np.isnan(corr) else 0.0
+            self.sign_multiplier_ = -1.0 if self.val_spearman_ < 0 else 1.0
+        else:
+            self.sign_multiplier_ = 1.0
+
+        self.is_fitted = True
+        return self
+
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        if not self.is_fitted:
+            raise RuntimeError("TrueZeroShotESM2Predictor must be fitted before predict().")
+        X_arr = np.asarray(X, dtype=np.float64)
+        scores = X_arr[:, 0] if X_arr.ndim > 1 else X_arr
+        return (scores * self.sign_multiplier_).astype(np.float64)
+
+    def get_params(self) -> Dict[str, Any]:
+        return {
+            "name": self.name,
+            "calibrate_sign_on_val": self.calibrate_sign_on_val,
+            "sign_multiplier": self.sign_multiplier_,
+            "val_spearman": self.val_spearman_,
+            "is_fitted": self.is_fitted,
+        }
+

@@ -148,8 +148,14 @@ class HuggingFaceESM2Model(ProteinLanguageModel):
             self.dtype = dtype
 
         try:
-            self.tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-            self.model = AutoModelForMaskedLM.from_pretrained(checkpoint, torch_dtype=self.dtype)
+            try:
+                self.tokenizer = AutoTokenizer.from_pretrained(checkpoint, local_files_only=True)
+                self.model = AutoModelForMaskedLM.from_pretrained(checkpoint, dtype=self.dtype, local_files_only=True)
+            except TypeError:
+                self.model = AutoModelForMaskedLM.from_pretrained(checkpoint, torch_dtype=self.dtype, local_files_only=True)
+            except Exception:
+                self.tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+                self.model = AutoModelForMaskedLM.from_pretrained(checkpoint, dtype=self.dtype)
             self.model.to(self.device)
             self.model.eval()
 
