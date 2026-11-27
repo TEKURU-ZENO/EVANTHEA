@@ -7,6 +7,7 @@ from evanthea.predictors.baselines import (
     TrueZeroShotESM2Predictor,
     ZeroShotESM2Predictor,
 )
+from evanthea.predictors.e2e_plm import E2ELoRALinear, EndToEndPLMPredictor
 from evanthea.predictors.gradient_boosting import HistGradientBoostingPredictor
 from evanthea.predictors.plm_finetune import (
     AttentiveDeepRegressionHead,
@@ -32,4 +33,6 @@ __all__ = [
     "LoRALinear",
     "AttentiveDeepRegressionHead",
     "CompositeRankLoss",
+    "EndToEndPLMPredictor",
+    "E2ELoRALinear",
 ]

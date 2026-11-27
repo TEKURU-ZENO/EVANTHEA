@@ -6,7 +6,7 @@ An Adaptive, Closed-Loop Framework for Protein Sequence Optimization Using Prote
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3119/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5+-ee4c2c.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests: 175 Passed](https://img.shields.io/badge/Tests-175%20Passed-brightgreen.svg)](tests/)
+[![Tests: 179 Passed](https://img.shields.io/badge/Tests-179%20Passed-brightgreen.svg)](tests/)
 
 ---
 
@@ -77,7 +77,7 @@ EVANTHEA formulates protein sequence design as a verifiable, closed-loop evoluti
 
 ## Core Modules & Implementation Reality
 
-Unlike conceptual frameworks that rely on placeholder marketing claims, EVANTHEA's codebase is fully implemented, strictly verified across 175 unit and integration tests, and benchmarked on real experimental datasets:
+Unlike conceptual frameworks that rely on placeholder marketing claims, EVANTHEA's codebase is fully implemented, strictly verified across 179 unit and integration tests, and benchmarked on real experimental datasets:
 
 ### 1. Data Ingestion & Sequence Intelligence (Phase 1)
 - **Rigid Amino Acid Validation**: Strict checks for canonical 20 amino acids, case normalization, and coordinate conversion (0-indexed internal representations vs 1-indexed biological coordinates).
@@ -96,11 +96,15 @@ Unlike conceptual frameworks that rely on placeholder marketing claims, EVANTHEA
   - `hybrid`: Concatenation of $\mathbf{h}_{\text{ESM2}}$ embeddings with explicit physico-chemical deltas and zero-shot log-odds.
 - **Deep Attentive PLM Surrogate (`PLMFineTuningPredictor`)**:
   - Zero-dependency parameter-efficient fine-tuning (PEFT) with native PyTorch **Low-Rank Adaptation (LoRA)**: $W = W_0 + \frac{\alpha}{r} BA$.
-  - Multi-scale attentive residual projection head with LayerNorm, GELU, and residual skip connections.
+  - Multi-scale attentive residual projection head with LayerNorm, GELU, and residual skip connections over pre-computed transformer embeddings.
   - **Composite Rank Loss (`CompositeRankLoss`)**: Combines Huber regression with smooth pairwise ranking loss ($\mathcal{L} = \mathcal{L}_{\text{Huber}} + \lambda_{\text{rank}} \mathcal{L}_{\text{rank}}$) to directly optimize Spearman rank correlation.
+- **Authentic Token-Level End-to-End ESM-2 LoRA Fine-Tuning (`EndToEndPLMPredictor`)**:
+  - Genuine token-level PEFT injecting trainable low-rank adapters (`E2ELoRALinear`: $W = W_0 + \frac{\alpha}{r}BA$) directly into the self-attention projections (`EsmSelfAttention.query`, `EsmSelfAttention.value`) of the ESM-2 transformer backbone.
+  - Frozen base transformer parameters with backpropagation isolated strictly to adapter matrices and attentive projection head.
+  - Token-level sequence inputs, masked mean pooling over unpadded residues, pre-tokenized `TensorDataset` caching, and OpenMP CPU multi-threading.
 - **Authentic Zero-Shot PLM Scoring (`TrueZeroShotESM2Predictor`)**:
   - Evaluates authentic ESM-2 150M wildtype-marginal / masked-marginal log-odds $\log P(x_i = v \mid \mathbf{x}) - \log P(x_i = w \mid \mathbf{x})$, achieving published ProteinGym literature numbers ($\rho \approx 0.52$ on GFP, $\rho \approx 0.64$ on TEM-1) with zero label training.
-- **Surrogate Algorithms**: Ridge Regression with closed-form L2 regularization, Histogram-based Gradient Boosted Trees (`HistGradientBoostingRegressor`), Random Forest, Deep PLM Fine-Tuning, and Zero-Shot PLM baselines.
+- **Surrogate Algorithms**: Ridge Regression with closed-form L2 regularization, Histogram-based Gradient Boosted Trees (`HistGradientBoostingRegressor`), Random Forest, Deep PLM Fine-Tuning, Token-Level End-to-End LoRA Fine-Tuning, and Zero-Shot PLM baselines.
 - **Leakage-Safe Scaling**: `TargetTransformer` fitted strictly on training folds to prevent target leakage.
 
 ### 3. Smart Mutation Proposal Engine (Phase 3)
@@ -282,6 +286,48 @@ Evaluated on **957 held-out test variants** under `mutation_features`:
    - Under strict position-held-out splits, TEM-1 retains higher spatial ranking fidelity ($\rho = 0.4506$) than GFP ($\rho = 0.3330$). This aligns with TEM-1's globular $\alpha/\beta$ fold having localized catalytic sensitivity, whereas GFP's cylindrical $\beta$-barrel depends on cooperative tertiary packing throughout the shell.
 
 *All raw artifacts and cross-target summaries are available in [`reports/phase2/cross_target_comparison.md`](reports/phase2/cross_target_comparison.md), [`reports/phase2/gfp/`](reports/phase2/gfp/), and [`reports/phase2/tem1/`](reports/phase2/tem1/).*
+
+---
+
+### Head-to-Head Empirical Benchmark: End-to-End ESM-2 LoRA vs. Hybrid Tree Ensemble
+
+To empirically assess whether authentic token-level parameter-efficient fine-tuning (PEFT) through transformer attention layers surpasses gradient-boosted tree ensembles on engineered representations, EVANTHEA evaluates 6 predictor paradigms on the full TEM-1 $\beta$-lactamase saturation landscape across both Low-$N$ ($N=250$) and Medium-$N$ ($N=800$) experimental regimes:
+
+#### 1. Low-N Experimental Regime ($N_{\text{train}} = 250$, $N_{\text{val}} = 100$, $N_{\text{test}} = 479$)
+
+| Model | Representation | Spearman ($\rho$) | Pearson ($r$) | MAE | RMSE | Top-10% Enrichment | Train Time |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **ZeroShotESM2** | `WT-Marginal Log-Odds` | **0.6376** | 0.6094 | 8.1444 | 8.6024 | 3.95x | 0.0s |
+| **RidgeFitnessPredictor** | `mutation_features` | **0.6766** | 0.6451 | 0.2721 | 0.3332 | **3.95x** | 0.10s |
+| **HistGradientBoosting** | `mutation_features` | 0.6252 | 0.6149 | 0.2610 | 0.3479 | 2.49x | 1.06s |
+| **HistGradientBoosting** | `hybrid` ($\Delta \mathbf{h} + \text{PhysChem}$) | 0.6252 | 0.6149 | 0.2610 | 0.3479 | 2.49x | 6.51s |
+| **PLMFineTune_Surrogate** | `Deep Head on Hybrid` | 0.3364 | 0.3327 | 0.3933 | 0.4477 | 2.29x | 0.65s |
+| **EndToEndPLM_LoRA** | `E2E Token LoRA (ESM2-8M)` | 0.1063 | 0.1186 | 0.4052 | 0.4431 | 1.04x | 100.8s |
+
+#### 2. Medium-N Experimental Regime ($N_{\text{train}} = 800$, $N_{\text{val}} = 150$, $N_{\text{test}} = 479$)
+
+| Model | Representation | Spearman ($\rho$) | Pearson ($r$) | MAE | RMSE | Top-10% Enrichment | Train Time |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **ZeroShotESM2** | `WT-Marginal Log-Odds` | 0.6376 | 0.6094 | 8.1444 | 8.6024 | 3.95x | 0.0s |
+| **RidgeFitnessPredictor** | `mutation_features` | 0.6737 | 0.6417 | 0.2681 | 0.3335 | **4.16x** | 0.04s |
+| **HistGradientBoosting** | `mutation_features` | **0.6831** | **0.6625** | **0.2521** | **0.3269** | 3.53x | 2.84s |
+| **HistGradientBoosting** | `hybrid` ($\Delta \mathbf{h} + \text{PhysChem}$) | **0.6831** | **0.6625** | **0.2521** | **0.3269** | 3.53x | 11.15s |
+| **PLMFineTune_Surrogate** | `Deep Head on Hybrid` | 0.6476 | 0.6369 | 0.2910 | 0.3718 | 3.74x | 3.12s |
+| **EndToEndPLM_LoRA** | `E2E Token LoRA (ESM2-8M)` | 0.2154 | 0.2245 | 0.3941 | 0.4348 | 1.04x | 221.2s |
+
+#### 3. Scientific Insights & Engineering Trade-Offs
+
+1. **Does Token-Level LoRA Beat Tree Ensembles?**:
+   - **Empirical Reality**: Under low-to-medium sample regimes ($N \le 800$) and CPU compute constraints, **hybrid tree ensembles clearly outperform end-to-end token-level fine-tuning** ($\rho = 0.6831$ vs $\rho = 0.2154$).
+   - **Sample Efficiency**: Tree ensembles (`HistGBDT`) and regularized linear regression (`Ridge`) effectively leverage high-dimensional tabular priors ($\Delta \mathbf{h} + \Delta \text{PhysChem} + \text{WT-Marginal Log-Odds}$) with near-zero sample overhead.
+   - **Transformer Learning Trajectory**: While token-level LoRA backpropagation learns non-trivial rank correlations (monotonic climb from $-0.045 \to +0.134$ on $N=250$, reaching $\rho = 0.2154$ on $N=800$), transformer attention backpropagation is fundamentally data-hungry. To overtake hybrid ensembles on the ProteinGym leaderboard, end-to-end fine-tuning requires thousands of training variants ($N \ge 10,000$) or multi-GPU pre-training with larger backbones (ESM-2 650M).
+2. **Surrogate Hierarchy**:
+   - **Tier 1 (Fast & Accurate)**: Tree ensembles on hybrid representations (`HistGBDT`) deliver peak ranking performance ($\rho \approx 0.68$) in seconds.
+   - **Tier 2 (Ultra-Sample-Efficient)**: `Ridge` on mutation features excels in low-$N$ regimes ($N=250$, $\rho = 0.6766$) where deep architectures risk under-fitting.
+   - **Tier 3 (Zero-Shot Baseline)**: Unsupervised ESM-2 masked-marginal log-odds achieve $\rho = 0.6376$ without any training data.
+   - **Tier 4 (Surrogate MLP vs Full LoRA)**: Deep projection heads over static embeddings (`PLMFineTune_Surrogate`) approach tree performance as data grows ($\rho = 0.6476$), at 70× lower computational cost than full end-to-end transformer backprop (`EndToEndPLM_LoRA`).
+
+*Full reproducible benchmark runner is in [`scripts/benchmark_e2e_vs_hybrid.py`](scripts/benchmark_e2e_vs_hybrid.py); reports are available in [`reports/phase2/e2e_vs_hybrid_comparison.md`](reports/phase2/e2e_vs_hybrid_comparison.md).*
 
 ---
 
