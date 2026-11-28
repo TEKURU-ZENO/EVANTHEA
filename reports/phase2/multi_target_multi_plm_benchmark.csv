@@ -1,0 +1,25 @@
+target,family,topology,n_train,n_test,model,architecture,spearman,pearson,mae,rmse,top10,train_time_sec,peak_vram_gb
+GFP,Fluorescent protein,11-stranded β-barrel,1000,500,ZeroShot_ESM2_650M,WT-Marginal Log-Odds,0.5263,0.5454,15.7095,16.7803,1.40,0.0,0.0 GB
+GFP,Fluorescent protein,11-stranded β-barrel,1000,500,Ridge_PhysChem,Linear L2 + PhysChem,0.5758,0.5981,0.7095,0.8401,2.40,0.03,CPU
+GFP,Fluorescent protein,11-stranded β-barrel,1000,500,HistGBDT_Mutation,Tree Ensemble (PhysChem),0.5797,0.6239,0.7722,0.8552,2.20,0.43,CPU
+GFP,Fluorescent protein,11-stranded β-barrel,1000,500,HistGBDT_Hybrid,PhysChem + ESM650M + LogOdds,0.6343,0.6936,0.5781,0.7559,2.40,13.65,CPU
+GFP,Fluorescent protein,11-stranded β-barrel,1000,500,E2E_ESM2_650M_LoRA,Transformer MLM (LoRA r=8),0.6209,0.6928,0.5241,0.7629,2.20,250.96,5.73 GB
+GFP,Fluorescent protein,11-stranded β-barrel,1000,500,E2E_Ankh_T5_LoRA,T5 Denoising (LoRA r=8),0.4828,0.4858,0.7547,0.9220,1.20,1305.09,8.27 GB
+BLAT,Hydrolase / Antibiotic resistance,α/β globular catalytic domain,1000,500,ZeroShot_ESM2_650M,WT-Marginal Log-Odds,0.7361,0.7121,9.4592,10.0393,3.80,0.0,0.0 GB
+BLAT,Hydrolase / Antibiotic resistance,α/β globular catalytic domain,1000,500,Ridge_PhysChem,Linear L2 + PhysChem,0.7515,0.7233,0.2571,0.3142,3.80,0.06,CPU
+BLAT,Hydrolase / Antibiotic resistance,α/β globular catalytic domain,1000,500,HistGBDT_Mutation,Tree Ensemble (PhysChem),0.7560,0.7437,0.2342,0.2989,2.00,0.39,CPU
+BLAT,Hydrolase / Antibiotic resistance,α/β globular catalytic domain,1000,500,HistGBDT_Hybrid,PhysChem + ESM650M + LogOdds,0.8151,0.8065,0.1989,0.2635,3.40,14.06,CPU
+BLAT,Hydrolase / Antibiotic resistance,α/β globular catalytic domain,1000,500,E2E_ESM2_650M_LoRA,Transformer MLM (LoRA r=8),0.7294,0.5963,0.3884,0.4355,2.20,383.05,4.54 GB
+BLAT,Hydrolase / Antibiotic resistance,α/β globular catalytic domain,1000,500,E2E_Ankh_T5_LoRA,T5 Denoising (LoRA r=8),0.5921,0.5463,0.3958,0.4427,2.20,600.02,5.76 GB
+BRCA1,Zinc-finger / E3 ubiquitin ligase,Multi-domain RING & tandem BRCT,1000,500,ZeroShot_ESM2_650M,WT-Marginal Log-Odds,0.4750,0.5689,11.2341,12.4512,1.20,0.0,0.0 GB
+BRCA1,Zinc-finger / E3 ubiquitin ligase,Multi-domain RING & tandem BRCT,1000,500,Ridge_PhysChem,Linear L2 + PhysChem,0.4925,0.5641,0.5421,0.7018,2.00,0.10,CPU
+BRCA1,Zinc-finger / E3 ubiquitin ligase,Multi-domain RING & tandem BRCT,1000,500,HistGBDT_Mutation,Tree Ensemble (PhysChem),0.4912,0.6130,0.5123,0.6841,2.20,1.10,CPU
+BRCA1,Zinc-finger / E3 ubiquitin ligase,Multi-domain RING & tandem BRCT,1000,500,HistGBDT_Hybrid,PhysChem + ESM650M + LogOdds,0.5312,0.6510,0.4721,0.6543,2.80,12.80,CPU
+BRCA1,Zinc-finger / E3 ubiquitin ligase,Multi-domain RING & tandem BRCT,1000,500,E2E_ESM2_650M_LoRA,Transformer MLM (LoRA r=8),-0.1434,-0.1120,0.9850,1.2140,0.80,765.20,5.92 GB
+BRCA1,Zinc-finger / E3 ubiquitin ligase,Multi-domain RING & tandem BRCT,1000,500,E2E_Ankh_T5_LoRA,T5 Denoising (LoRA r=8),N/A,N/A,N/A,N/A,N/A,0.0,OOM (>8GB)
+P53,Transcription factor / DNA-binding domain,Ig-like β-sandwich + zinc coordination,1000,500,ZeroShot_ESM2_650M,WT-Marginal Log-Odds,0.3427,0.3799,12.8541,13.9214,1.20,0.0,0.0 GB
+P53,Transcription factor / DNA-binding domain,Ig-like β-sandwich + zinc coordination,1000,500,Ridge_PhysChem,Linear L2 + PhysChem,0.3808,0.4173,0.6214,0.7812,2.00,0.30,CPU
+P53,Transcription factor / DNA-binding domain,Ig-like β-sandwich + zinc coordination,1000,500,HistGBDT_Mutation,Tree Ensemble (PhysChem),0.3802,0.4244,0.5921,0.7645,1.80,1.10,CPU
+P53,Transcription factor / DNA-binding domain,Ig-like β-sandwich + zinc coordination,1000,500,HistGBDT_Hybrid,PhysChem + ESM650M + LogOdds,0.5402,0.5861,0.4812,0.6892,4.00,22.40,CPU
+P53,Transcription factor / DNA-binding domain,Ig-like β-sandwich + zinc coordination,1000,500,E2E_ESM2_650M_LoRA,Transformer MLM (LoRA r=8),0.4402,0.4894,0.5123,0.7231,3.60,649.30,5.82 GB
+P53,Transcription factor / DNA-binding domain,Ig-like β-sandwich + zinc coordination,1000,500,E2E_Ankh_T5_LoRA,T5 Denoising (LoRA r=8),0.3121,0.3245,0.6841,0.8412,1.80,1060.50,7.89 GB

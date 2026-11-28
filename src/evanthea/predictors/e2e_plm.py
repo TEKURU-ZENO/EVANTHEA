@@ -169,8 +169,16 @@ class EndToEndPLMPredictor(FitnessPredictor):
                 pass
         return "cpu"
 
+    def _tokenize_sequences(self, sequences: List[str]) -> Dict[str, torch.Tensor]:
+        assert self.tokenizer is not None
+        is_t5 = "t5" in self.model_name.lower() or "ankh" in self.model_name.lower()
+        if is_t5:
+            tokenized = [list(s) for s in sequences]
+            return self.tokenizer(tokenized, is_split_into_words=True, padding=True, return_tensors="pt")
+        return self.tokenizer(sequences, padding=True, return_tensors="pt")
+
     def _init_model(self) -> None:
-        """Initializes tokenizer, base ESM-2 model, injects LoRA, and builds regression head."""
+        """Initializes tokenizer, base PLM model (ESM or T5/Ankh), injects LoRA, and builds regression head."""
         torch.manual_seed(self.seed)
         np.random.seed(self.seed)
 
@@ -183,28 +191,44 @@ class EndToEndPLMPredictor(FitnessPredictor):
             load_dtype = self.torch_dtype if self.torch_dtype is not None else torch.bfloat16
             attn_impl = self.attn_implementation if self.attn_implementation is not None else "sdpa"
 
+        is_t5 = "t5" in self.model_name.lower() or "ankh" in self.model_name.lower()
+        if is_t5:
+            from transformers import T5EncoderModel
+            model_cls = T5EncoderModel
+            if set(self.target_modules) == {"query", "value"}:
+                self.target_modules = ["q", "v"]
+        else:
+            from transformers import AutoModel
+            model_cls = AutoModel
+
         # Cache-first resolution to prevent sandbox network timeouts
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, local_files_only=True)
-            base_esm = AutoModel.from_pretrained(
-                self.model_name,
-                local_files_only=True,
-                dtype=load_dtype,
-                attn_implementation=attn_impl,
-            )
-        except Exception:
             try:
-                self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-                base_esm = AutoModel.from_pretrained(
+                base_esm = model_cls.from_pretrained(
+                    self.model_name,
+                    local_files_only=True,
+                    dtype=load_dtype,
+                    attn_implementation=attn_impl,
+                )
+            except Exception:
+                base_esm = model_cls.from_pretrained(
+                    self.model_name,
+                    local_files_only=True,
+                    dtype=load_dtype,
+                )
+        except Exception:
+            self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+            try:
+                base_esm = model_cls.from_pretrained(
                     self.model_name,
                     dtype=load_dtype,
                     attn_implementation=attn_impl,
                 )
             except Exception:
-                self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-                base_esm = AutoModel.from_pretrained(self.model_name, dtype=load_dtype)
+                base_esm = model_cls.from_pretrained(self.model_name, dtype=load_dtype)
 
-        # Freeze all base ESM parameters
+        # Freeze all base model parameters
         for p in base_esm.parameters():
             p.requires_grad = False
 
@@ -225,7 +249,7 @@ class EndToEndPLMPredictor(FitnessPredictor):
 
         logger.info(f"Injected LoRA into {num_injected} layers in {self.model_name}.")
 
-        hidden_dim = base_esm.config.hidden_size
+        hidden_dim = getattr(base_esm.config, "hidden_size", getattr(base_esm.config, "d_model", 768))
         self.model = E2EProteinRegressionModel(
             base_model=base_esm,
             hidden_dim=hidden_dim,
@@ -245,7 +269,7 @@ class EndToEndPLMPredictor(FitnessPredictor):
         assert self.model is not None and self.tokenizer is not None
 
         # Pre-tokenize all sequences upfront for fast batch iteration
-        train_enc = self.tokenizer(train_sequences, padding=True, return_tensors="pt")
+        train_enc = self._tokenize_sequences(train_sequences)
         train_ids = train_enc["input_ids"]
         train_mask = train_enc["attention_mask"]
         train_y = torch.tensor(train_targets, dtype=torch.float32)
@@ -255,7 +279,7 @@ class EndToEndPLMPredictor(FitnessPredictor):
 
         val_loader = None
         if val_sequences is not None and val_targets is not None and len(val_sequences) > 0:
-            val_enc = self.tokenizer(val_sequences, padding=True, return_tensors="pt")
+            val_enc = self._tokenize_sequences(val_sequences)
             val_ids = val_enc["input_ids"]
             val_mask = val_enc["attention_mask"]
             val_y = torch.tensor(val_targets, dtype=torch.float32)
@@ -360,7 +384,7 @@ class EndToEndPLMPredictor(FitnessPredictor):
             raise RuntimeError("EndToEndPLMPredictor must be fitted before predict.")
 
         self.model.eval()
-        enc = self.tokenizer(sequences, padding=True, return_tensors="pt")
+        enc = self._tokenize_sequences(sequences)
         dataset = TensorDataset(enc["input_ids"], enc["attention_mask"])
         loader = DataLoader(dataset, batch_size=self.batch_size, shuffle=False)
 

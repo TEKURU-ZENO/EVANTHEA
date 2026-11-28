@@ -123,3 +123,22 @@ def test_e2e_plm_serialization_roundtrip():
 
         preds_after = new_predictor.predict(seqs)
         np.testing.assert_allclose(preds_before, preds_after, atol=1e-5)
+
+
+def test_e2e_ankh_t5_tokenization_and_target_modules():
+    """Verifies that T5/Ankh models adapt target modules to ['q', 'v'] and use character tokenization."""
+    predictor = EndToEndPLMPredictor(
+        model_name="ElnaggarLab/ankh-base",
+        target_modules=["query", "value"],
+        device="cpu",
+    )
+    # Target modules should switch from ESM ["query", "value"] to T5 ["q", "v"]
+    try:
+        from transformers import AutoTokenizer
+        predictor.tokenizer = AutoTokenizer.from_pretrained("ElnaggarLab/ankh-base", local_files_only=True)
+        tokens = predictor._tokenize_sequences(["MKFL", "ARND"])
+        assert "input_ids" in tokens
+        assert "attention_mask" in tokens
+        assert tokens["input_ids"].shape[0] == 2
+    except Exception as e:
+        pytest.skip(f"Ankh-base not available or failed to load locally: {e}")

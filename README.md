@@ -371,6 +371,39 @@ Evaluated using **ESM-2 650M (`facebook/esm2_t33_650M_UR50D`)** on an **NVIDIA G
 
 ---
 
+### Multi-Target & Cross-Architecture Benchmark: Diverse Folds & ESM-2 vs. Ankh (T5)
+
+To establish generalization boundaries beyond single proteins, EVANTHEA expands empirical evaluation across **4 diverse protein families and topologies** representing distinct biophysical mechanisms:
+1. **GFP (`GFP_AEQVI_Sarkisyan_2016`)**: 11-stranded $\beta$-barrel fluorophore ($L=238$, 51,027 variants) — higher-order combinatorial epistasis.
+2. **TEM-1 BLAT (`BLAT_ECOLX_Firnberg_2014`)**: $\alpha/\beta$ globular catalytic enzyme ($L=286$, 4,783 variants) — localized active-site sensitivity.
+3. **BRCA1 (`BRCA1_HUMAN_Findlay_2018`)**: Zinc-finger RING domain & tandem BRCT ($L=1863$, 1,837 variants) — full-length human tumor suppressor with extreme sequence length.
+4. **p53 (`P53_HUMAN_Giacomelli_NULL_Nutlin_2018`)**: Immunoglobulin-like $\beta$-sandwich DNA-binding domain ($L=393$, 7,467 variants) — dynamic eukaryotic transcription factor.
+
+Evaluated head-to-head across 6 paradigms ($N_{\text{train}} = 1,000$, $N_{\text{val}} = 250$, $N_{\text{test}} = 500$ held-out variants):
+
+| Target | Topology ($L$) | Zero-Shot ESM-2 650M | Ridge (PhysChem) | HistGBDT (Mutation) | HistGBDT (Hybrid) | E2E ESM-2 650M LoRA | E2E Ankh T5 LoRA |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **GFP** | $\beta$-barrel ($L=238$) | 0.5263 | 0.5758 | 0.5797 | **0.6343** | **0.6209** | 0.4828 |
+| **TEM-1 (BLAT)** | Catalytic $\alpha/\beta$ ($L=286$) | 0.7361 | 0.7515 | 0.7560 | **0.8151** | **0.7294** | 0.5921 |
+| **BRCA1** | Zinc-finger ($L=1863$) | 0.4750 | 0.4925 | 0.4912 | **0.5312** | Local dilution ($L>1000$) | Eager attention OOM |
+| **p53** | $\beta$-sandwich TF ($L=393$) | 0.3427 | 0.3808 | 0.3802 | **0.5402** | **0.4402** | 0.3121 |
+
+#### Empirical Takeaways & Cross-Architecture Principles
+
+1. **The Hybrid Gradient Boosting Dominance**:
+   - Across all 4 structural families, combining biophysical delta descriptors, mean-pooled ESM-2 650M embeddings, and zero-shot log-odds (`HistGBDT Hybrid`) consistently achieves the strongest performance (BLAT $\rho = \mathbf{0.8151}$, GFP $\rho = \mathbf{0.6343}$, p53 $\rho = \mathbf{0.5402}$, BRCA1 $\rho = \mathbf{0.5312}$).
+   - It trains in 12–22 seconds on CPU with zero GPU memory requirements, providing the optimal speed/accuracy trade-off for iterative engineering loops.
+2. **ESM-2 (Masked LM + SDPA) vs. Ankh (T5 Span Denoising + Eager Attention)**:
+   - **Predictive Quality**: ESM-2 650M consistently outranks Ankh-base across all targets (GFP: 0.6209 vs. 0.4828; BLAT: 0.7294 vs. 0.5921; p53: 0.4402 vs. 0.3121). ESM-2's evolutionary masked language modeling pre-training on UniRef50 yields significantly sharper fitness gradients.
+   - **Attention Scalability**: ESM-2 natively supports PyTorch Scaled Dot-Product Attention (SDPA fused FlashAttention), training within 4.5–5.8 GB VRAM. In contrast, standard T5 encoder implementations lack SDPA and rely on eager attention $O(L^2)$, which exhausts the 8 GB VRAM limit on $L \ge 393$ and causes severe PCIe memory paging thrashing and driver timeouts.
+3. **The Long-Sequence Dilution Wall ($L > 1,000$)**:
+   - In full-length proteins like BRCA1 ($L=1863$), point mutations in localized domains (e.g., RING domain residues 1-100) are attenuated $1800\times$ under global mean pooling across 1,863 tokens, degrading end-to-end sequence fine-tuning ($\text{Val } \rho = -0.1434$).
+   - In contrast, position-indexed zero-shot log-odds ($\rho = 0.4750$) and localized biophysical hybrid tree ensembles ($\rho = 0.5312$) bypass sequence dilution, maintaining robust predictive fidelity.
+
+*Full reproducible benchmark runner is in [`scripts/finalize_benchmark_report.py`](scripts/finalize_benchmark_report.py); reports are available in [`reports/phase2/multi_target_multi_plm_benchmark.md`](reports/phase2/multi_target_multi_plm_benchmark.md) and [`reports/phase2/multi_target_multi_plm_benchmark.csv`](reports/phase2/multi_target_multi_plm_benchmark.csv).*
+
+---
+
 ## Installation & Setup
 
 EVANTHEA requires **Python 3.11**.
