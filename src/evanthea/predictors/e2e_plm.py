@@ -54,9 +54,10 @@ class E2ELoRALinear(nn.Module):
 
         in_features = base_linear.in_features
         out_features = base_linear.out_features
+        dtype = base_linear.weight.dtype
 
-        self.lora_A = nn.Parameter(torch.empty(r, in_features))
-        self.lora_B = nn.Parameter(torch.zeros(out_features, r))
+        self.lora_A = nn.Parameter(torch.empty(r, in_features, dtype=dtype))
+        self.lora_B = nn.Parameter(torch.zeros(out_features, r, dtype=dtype))
         self.dropout = nn.Dropout(p=dropout) if dropout > 0.0 else nn.Identity()
 
         # Kaiming uniform initialization for A
@@ -80,14 +81,15 @@ class E2EProteinRegressionModel(nn.Module):
     ) -> None:
         super().__init__()
         self.base_model = base_model
+        base_dtype = getattr(base_model, "dtype", torch.float32)
         self.head = nn.Sequential(
-            nn.Linear(hidden_dim, head_hidden_dim),
-            nn.LayerNorm(head_hidden_dim),
+            nn.Linear(hidden_dim, head_hidden_dim, dtype=base_dtype),
+            nn.LayerNorm(head_hidden_dim, dtype=base_dtype),
             nn.GELU(),
             nn.Dropout(dropout),
-            nn.Linear(head_hidden_dim, 32),
+            nn.Linear(head_hidden_dim, 32, dtype=base_dtype),
             nn.GELU(),
-            nn.Linear(32, 1),
+            nn.Linear(32, 1, dtype=base_dtype),
         )
 
     def forward(self, input_ids: torch.Tensor, attention_mask: torch.Tensor) -> torch.Tensor:
@@ -95,7 +97,7 @@ class E2EProteinRegressionModel(nn.Module):
         # Masked mean pooling across valid residue tokens (excluding padding)
         mask = attention_mask.unsqueeze(-1)
         pooled = (outputs.last_hidden_state * mask).sum(dim=1) / mask.sum(dim=1).clamp(min=1)
-        return self.head(pooled).squeeze(-1)
+        return self.head(pooled).squeeze(-1).float()
 
 
 class EndToEndPLMPredictor(FitnessPredictor):
@@ -123,6 +125,8 @@ class EndToEndPLMPredictor(FitnessPredictor):
         huber_delta: float = 1.0,
         seed: int = 42,
         device: Optional[str] = None,
+        torch_dtype: Optional[torch.dtype] = None,
+        attn_implementation: Optional[str] = None,
     ) -> None:
         super().__init__(name=f"E2E_PLM_{model_name.split('/')[-1]}")
         self.model_name = model_name
@@ -140,6 +144,8 @@ class EndToEndPLMPredictor(FitnessPredictor):
         self.lambda_rank = lambda_rank
         self.huber_delta = huber_delta
         self.seed = seed
+        self.torch_dtype = torch_dtype
+        self.attn_implementation = attn_implementation
 
         # Device selection: test CUDA tensor execution or fallback to CPU
         if device is not None:
@@ -171,14 +177,32 @@ class EndToEndPLMPredictor(FitnessPredictor):
         if self.device_str == "cpu":
             num_cores = os.cpu_count() or 8
             torch.set_num_threads(num_cores)
+            load_dtype = torch.float32
+            attn_impl = "eager"
+        else:
+            load_dtype = self.torch_dtype if self.torch_dtype is not None else torch.bfloat16
+            attn_impl = self.attn_implementation if self.attn_implementation is not None else "sdpa"
 
         # Cache-first resolution to prevent sandbox network timeouts
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, local_files_only=True)
-            base_esm = AutoModel.from_pretrained(self.model_name, local_files_only=True)
+            base_esm = AutoModel.from_pretrained(
+                self.model_name,
+                local_files_only=True,
+                dtype=load_dtype,
+                attn_implementation=attn_impl,
+            )
         except Exception:
-            self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-            base_esm = AutoModel.from_pretrained(self.model_name)
+            try:
+                self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+                base_esm = AutoModel.from_pretrained(
+                    self.model_name,
+                    dtype=load_dtype,
+                    attn_implementation=attn_impl,
+                )
+            except Exception:
+                self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+                base_esm = AutoModel.from_pretrained(self.model_name, dtype=load_dtype)
 
         # Freeze all base ESM parameters
         for p in base_esm.parameters():

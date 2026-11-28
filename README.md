@@ -331,6 +331,46 @@ To empirically assess whether authentic token-level parameter-efficient fine-tun
 
 ---
 
+### Large-Scale GPU Cross-Over Study: ESM-2 650M LoRA vs. Hybrid Tree Ensemble on GFP (51,027 Variants)
+
+To definitively test whether authentic token-level parameter-efficient fine-tuning (PEFT) with large foundation backbones crosses over gradient-boosted tree ensembles on epistatic mutational landscapes, EVANTHEA executes a large-scale scaling study on **Green Fluorescent Protein (`GFP_AEQVI_Sarkisyan_2016`, 51,027 variants)**. 
+
+Evaluated using **ESM-2 650M (`facebook/esm2_t33_650M_UR50D`)** on an **NVIDIA GeForce RTX 5050 Laptop GPU** (Blackwell `sm_120`, PyTorch 2.11+cu128, SDPA Fused FlashAttention, `bfloat16`) across 4 sample regimes evaluated on a strictly held-out test set ($N_{\text{test}} = 1,000$ variants):
+
+#### 1. Cross-Over Scaling Trajectory Across Sample Regimes
+
+| Model | Representation | Low-$N$ ($N=250$) | Medium-$N$ ($N=1,000$) | High-$N$ ($N=2,500$) | Scale-$N$ ($N=5,000$) | Train Time ($N=5k$) | Peak VRAM |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **ZeroShotESM2_650M** | `WT-Marginal Log-Odds` | 0.5262 | 0.5262 | 0.5262 | 0.5262 | 0.0s | 0.0 GB |
+| **RidgeFitnessPredictor** | `mutation_features` | **0.5665** | 0.5684 | 0.5654 | 0.5674 | 0.08s | CPU |
+| **HistGradientBoosting** | `mutation_features` | 0.5001 | 0.5654 | 0.5775 | 0.5833 | 0.94s | CPU |
+| **HistGradientBoosting** | `hybrid` (ESM2-650M + PhysChem) | 0.5283 | **0.6069** | 0.6546 | 0.6725 | 22.26s | CPU |
+| **EndToEndPLM_LoRA** | `E2E Token LoRA (ESM2-650M)` | 0.1270 | 0.4855 | **0.6611** *(Cross)* | **0.7012** *(Decisive)* | 778.15s | 6.15 GB |
+
+#### 2. Fine-Tuning Performance & Metric Evolution ($N_{\text{train}} = 5,000$, Held-Out Test $N=1,000$)
+
+| Architecture | Feature Input | Spearman ($\rho$) | Pearson ($r$) | MAE | RMSE | Top-10% Enrichment |
+|---|---|:---:|:---:|:---:|:---:|:---:|
+| **ZeroShotESM2_650M** | Unsupervised Log-Odds | 0.5262 | 0.5437 | 16.4289 | 17.5534 | 2.10x |
+| **RidgeFitnessPredictor** | `mutation_features` | 0.5674 | 0.5829 | 0.7239 | 0.8603 | 1.90x |
+| **HistGradientBoosting** | `mutation_features` | 0.5833 | 0.6263 | 0.6461 | 0.8248 | 2.00x |
+| **HistGradientBoosting** | `hybrid` (ESM2-650M + PhysChem) | 0.6725 | 0.7062 | 0.5756 | 0.7502 | 2.80x |
+| **EndToEndPLM_LoRA** | `facebook/esm2_t33_650M_UR50D` | **0.7012** | **0.7585** | **0.4222** | **0.7071** | **3.10x** |
+
+#### 3. Empirical Discoveries & The Cross-Over Law
+
+1. **The Exact Cross-Over Boundary ($N^* \approx 2,000 - 2,500$ Variants)**:
+   - At $N \le 1,000$, tabular tree ensembles and regularized linear regression outperform end-to-end transformer fine-tuning because hand-engineered biophysical descriptors ($\Delta \text{Charge}, \Delta \text{Volume}, \Delta \text{Hydropathy}$) and zero-shot evolutionary priors provide rigid inductive regularization.
+   - At $N \approx 2,500$, end-to-end token-level attention adaptation achieves parity ($\rho = 0.6611$ vs $\rho = 0.6546$).
+   - At $N = 5,000$, token-level LoRA fine-tuning **decisively crosses over** the tree ensemble, breaking the 0.70 Spearman threshold on combinatorial epistasis ($\rho = \mathbf{0.7012}$, Pearson $r = \mathbf{0.7585}$, MAE reduced by 27% to $\mathbf{0.4222}$).
+2. **GPU Engineering on Consumer Blackwell Hardware**:
+   - Upgrading to PyTorch 2.11 with CUDA 12.8 enabled native execution on the **NVIDIA GeForce RTX 5050 Laptop GPU** (`sm_120`).
+   - By leveraging Scaled Dot-Product Attention (SDPA fused FlashAttention) and `torch.bfloat16`, peak VRAM for ESM-2 650M fine-tuning was constrained to **6.15 GB** (well inside the 8.15 GB hardware ceiling) while achieving a training throughput of **11.1 sequences/second**.
+
+*Full reproducible GPU benchmark runner is in [`scripts/benchmark_esm2_650m_crossover.py`](scripts/benchmark_esm2_650m_crossover.py); reports are available in [`reports/phase2/esm2_650m_crossover.md`](reports/phase2/esm2_650m_crossover.md) and [`reports/phase2/esm2_650m_crossover.csv`](reports/phase2/esm2_650m_crossover.csv).*
+
+---
+
 ## Installation & Setup
 
 EVANTHEA requires **Python 3.11**.
